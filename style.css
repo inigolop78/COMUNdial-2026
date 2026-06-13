@@ -213,13 +213,13 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 .pts-summary-table tr:last-child td{color:#e8c63a;font-weight:800;}
 
 /* APUESTAS LAYOUT */
-.apuestas-layout{display:flex;gap:.6rem;padding:.6rem;align-items:flex-start;overflow-x:auto;}
+.apuestas-layout{display:flex;gap:.5rem;padding:.5rem;align-items:flex-start;}
 .apuestas-cards-col{display:flex;flex-direction:column;gap:.4rem;overflow-x:auto;}
-.apuestas-row{display:grid;grid-template-columns:repeat(5,237px);gap:.5rem;min-width:max-content;}
-.apuesta-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;width:237px;}
+.apuestas-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;}
+.apuesta-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;width:200px;}
 .apuesta-card-header{display:flex;justify-content:space-between;align-items:center;padding:.45rem .6rem;background:var(--card2);border-bottom:1px solid var(--border);font-size:.92rem;font-weight:700;}
 .apuesta-total{font-weight:900;color:var(--accent);}
 .apuesta-teams-list{display:flex;flex-direction:column;padding:.4rem .5rem;gap:.2rem;}
-.apuestas-rank-col{width:270px;flex-shrink:0;background:var(--bg);padding-left:.4rem;}
+.apuestas-rank-col{width:180px;flex-shrink:0;background:var(--bg);padding-left:.4rem;}
 .apuestas-ranking{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
 .rank-title{display:flex;justify-content:space-between;padding:.35rem .7rem;background:var(--card2);border-bottom:1px solid var(--border);font-size:.78rem;font-weight:700;color:var(--text2);}
