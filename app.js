@@ -372,12 +372,19 @@ function renderApuestas() {
 
   const medals = ['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
 
-  // Layout: cards on left, ranking table on right
+  // Layout: 2 rows of 5 participants + ranking on right
   const apuestasLayout = document.createElement('div');
   apuestasLayout.className = 'apuestas-layout';
 
   const cardsCol = document.createElement('div');
   cardsCol.className = 'apuestas-cards-col';
+
+  // Row 1: first 5 participants
+  const row1 = document.createElement('div');
+  row1.className = 'apuestas-row';
+  // Row 2: last 5 participants
+  const row2 = document.createElement('div');
+  row2.className = 'apuestas-row';
 
   participantes.forEach((p,i) => {
     const card = document.createElement('div');
@@ -388,7 +395,7 @@ function renderApuestas() {
         <span>${medals[i]} <strong>${p.nombre}</strong></span>
         <span class="apuesta-total">${p.total} pts</span>
       </div>
-      <div class="apuesta-teams">
+      <div class="apuesta-teams-list">
         ${sorted.map(eq=>`
           <div class="apuesta-chip">
             <span class="chip-name">${eq}</span>
@@ -397,20 +404,28 @@ function renderApuestas() {
         `).join('')}
       </div>
     `;
-    cardsCol.appendChild(card);
+    if (i < 5) row1.appendChild(card);
+    else row2.appendChild(card);
   });
+
+  cardsCol.appendChild(row1);
+  cardsCol.appendChild(row2);
 
   const rankCol = document.createElement('div');
   rankCol.className = 'apuestas-rank-col';
   const rankDiv = document.createElement('div');
   rankDiv.className = 'apuestas-ranking';
+  const rankTitle = document.createElement('div');
+  rankTitle.className = 'rank-title';
+  rankTitle.innerHTML = '<span>Participante</span><span>Puntos</span>';
+  rankDiv.appendChild(rankTitle);
   participantes.forEach((p,i) => {
     const row = document.createElement('div');
     row.className = `rank-row${i===0?' rank-first':''}`;
     row.innerHTML = `
       <span class="rank-medal">${medals[i]}</span>
       <span class="rank-name">${p.nombre}</span>
-      <span class="rank-pts">${p.total} <small>pts</small></span>
+      <span class="rank-pts">${p.total}</span>
     `;
     rankDiv.appendChild(row);
   });
