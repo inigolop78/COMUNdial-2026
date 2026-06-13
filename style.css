@@ -58,7 +58,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 .section-header h2{font-size:1rem;font-weight:700;}
 
 /* ===== FASE DE GRUPOS ===== */
-.group-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;padding:.5rem .5rem 0;}
+.group-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;padding:.5rem .5rem 0;}
 .group-col{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
 .group-col-header{display:flex;align-items:center;gap:.4rem;padding:.4rem .6rem;background:var(--card2);border-bottom:1px solid var(--border);}
 .group-badge{width:22px;height:22px;background:var(--accent);color:var(--bg);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;flex-shrink:0;}
@@ -171,3 +171,22 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 .sync-ok{background:var(--green);}
 .sync-error{background:var(--red);}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+/* PUNTUACIONES LAYOUT */
+.pts-layout{display:flex;flex-direction:column;gap:.6rem;padding:.6rem;}
+.pts-main-wrap{overflow-x:auto;}
+.pts-main-table{width:100%;border-collapse:collapse;font-size:.65rem;background:var(--card);border-radius:var(--r);overflow:hidden;}
+.pts-main-table th{background:var(--card2);padding:.35rem .4rem;text-align:center;color:var(--text2);font-size:.6rem;white-space:nowrap;border-bottom:1px solid var(--border);}
+.pts-main-table th:first-child{text-align:left;}
+.pts-main-table td{padding:.3rem .4rem;text-align:center;border-bottom:1px solid var(--border);}
+.pts-main-table tr:last-child td{border-bottom:none;}
+.pts-team{text-align:left!important;font-weight:600;white-space:nowrap;}
+.pts-grp{font-weight:700;color:var(--accent);}
+.pts-total{font-weight:800;color:var(--accent);}
+.pts-summary-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
+.pts-summary-table{width:100%;border-collapse:collapse;}
+.pts-summary-table th{background:var(--card2);padding:.4rem .7rem;text-align:left;font-size:.75rem;color:var(--text2);border-bottom:1px solid var(--border);}
+.pts-summary-table td{padding:.4rem .7rem;font-size:.78rem;border-bottom:1px solid var(--border);}
+.pts-summary-table tr:last-child td{border-bottom:none;}
+.pts-val{font-weight:700;color:var(--accent);text-align:right;}
+.pts-val.gold{color:#e8c63a;font-size:.9rem;}
