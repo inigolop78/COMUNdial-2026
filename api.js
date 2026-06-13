@@ -8,6 +8,8 @@ const TEAM_NAME_MAP = {
   'Ivory Coast':            'Costa de Marfil',
   'Saudi Arabia':           'Arabia Saudí',
   'Bosnia and Herzegovina': 'Bosnia Herzegovina',
+  'Bosnia-Herzegovina':     'Bosnia Herzegovina',
+  'Czechia':                'República Checa',
   'New Zealand':            'Nueva Zelanda',
   'USA':                    'Estados Unidos',
   'United States':          'Estados Unidos',
