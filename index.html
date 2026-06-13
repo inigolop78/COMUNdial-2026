@@ -12,82 +12,55 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- SPLASH -->
   <div id="splash">
     <div class="splash-ball">⚽</div>
     <h1>MUNDIAL<br><span>2026</span></h1>
     <p>Comunio</p>
   </div>
 
-  <!-- APP SHELL -->
   <div id="app" class="hidden">
-
-    <!-- HEADER -->
     <header>
       <div class="header-inner">
         <span class="header-logo">⚽</span>
         <h1 class="header-title">Mundial 2026</h1>
-        <span class="header-sub">Comunio</span>
+        <div class="header-right">
+          <div id="sync-status" class="sync-idle" title="Sincronización"></div>
+          <span class="header-sub">Comunio</span>
+        </div>
       </div>
     </header>
 
-    <!-- NAV -->
     <nav id="main-nav">
-      <button class="nav-btn active" data-section="partidos">
-        <span class="nav-icon">🗓️</span>
-        <span>Partidos</span>
-      </button>
-      <button class="nav-btn" data-section="grupos">
-        <span class="nav-icon">📊</span>
-        <span>Grupos</span>
+      <button class="nav-btn active" data-section="fasegrupos">
+        <span class="nav-icon">🗓️</span><span>Fase Grupos</span>
       </button>
       <button class="nav-btn" data-section="eliminatorias">
-        <span class="nav-icon">🏆</span>
-        <span>Eliminatorias</span>
+        <span class="nav-icon">🏆</span><span>Eliminatorias</span>
       </button>
-      <button class="nav-btn" data-section="comunio">
-        <span class="nav-icon">⭐</span>
-        <span>Comunio</span>
+      <button class="nav-btn" data-section="puntuaciones">
+        <span class="nav-icon">📋</span><span>Puntuaciones</span>
+      </button>
+      <button class="nav-btn" data-section="apuestas">
+        <span class="nav-icon">⭐</span><span>Apuestas</span>
       </button>
     </nav>
 
-    <!-- CONTENT -->
     <main id="content">
-
-      <!-- PARTIDOS -->
-      <section id="sec-partidos" class="section active">
-        <div class="section-header">
-          <h2>Resultados</h2>
-          <div class="group-tabs" id="group-tabs"></div>
-        </div>
-        <div id="partidos-container"></div>
+      <section id="sec-fasegrupos" class="section active">
+        <div id="fasegrupos-container"></div>
       </section>
-
-      <!-- GRUPOS -->
-      <section id="sec-grupos" class="section">
-        <div class="section-header">
-          <h2>Clasificación</h2>
-        </div>
-        <div id="grupos-container"></div>
-      </section>
-
-      <!-- ELIMINATORIAS -->
       <section id="sec-eliminatorias" class="section">
-        <div class="section-header">
-          <h2>Eliminatorias</h2>
-        </div>
+        <div class="section-header"><h2>Eliminatorias</h2></div>
         <div id="eliminatorias-container"></div>
       </section>
-
-      <!-- COMUNIO -->
-      <section id="sec-comunio" class="section">
-        <div class="section-header">
-          <h2>Puntuaciones</h2>
-        </div>
-        <div id="comunio-container"></div>
+      <section id="sec-puntuaciones" class="section">
+        <div class="section-header"><h2>Sistema de Puntuación</h2></div>
+        <div id="puntuaciones-container"></div>
       </section>
-
+      <section id="sec-apuestas" class="section">
+        <div class="section-header"><h2>Apuestas</h2></div>
+        <div id="apuestas-container"></div>
+      </section>
     </main>
   </div>
 
@@ -110,7 +83,7 @@
           <span id="modal-visit" class="modal-team"></span>
         </div>
         <div class="modal-actions">
-          <button id="modal-clear" class="btn-secondary">Borrar resultado</button>
+          <button id="modal-clear" class="btn-secondary">Borrar</button>
           <button id="modal-save" class="btn-primary">Guardar</button>
         </div>
       </div>
@@ -118,6 +91,7 @@
   </div>
 
   <script src="data.js"></script>
+  <script src="api.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

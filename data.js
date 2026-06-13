@@ -13,7 +13,6 @@ const GRUPOS = {
   L: ['Inglaterra', 'Croacia', 'Ghana', 'Panamá']
 };
 
-// Partido: [local, visitante, fecha]
 const PARTIDOS_GRUPO = {
   A: [
     ['México', 'Sudáfrica', '12 Jun'],
@@ -113,83 +112,70 @@ const PARTIDOS_GRUPO = {
   ]
 };
 
-// Cuadro eliminatorio: [id, descripción, equipo1_ref, equipo2_ref]
-const ELIMINATORIAS = {
-  '1/16': [
-    { id: 'DF1',  desc: '2º A vs 2º B',       e1: '2A', e2: '2B' },
-    { id: 'DF2',  desc: '1º C vs 2º F',       e1: '1C', e2: '2F' },
-    { id: 'DF3',  desc: '1º E vs 3º A/B/C/D/F', e1: '1E', e2: '3ABCDF' },
-    { id: 'DF4',  desc: '1º F vs 2º C',       e1: '1F', e2: '2C' },
-    { id: 'DF5',  desc: '2º E vs 2º I',       e1: '2E', e2: '2I' },
-    { id: 'DF6',  desc: '1º I vs 3º C/D/F/G/H', e1: '1I', e2: '3CDFGH' },
-    { id: 'DF7',  desc: '1º A vs 3º C/E/F/H/I', e1: '1A', e2: '3CEFHI' },
-    { id: 'DF8',  desc: '1º L vs 3º E/H/I/J/K', e1: '1L', e2: '3EHIJK' },
-    { id: 'DF9',  desc: '1º G vs 3º A/E/H/I/J', e1: '1G', e2: '3AEHIJ' },
-    { id: 'DF10', desc: '1º D vs 3º B/E/F/I/J', e1: '1D', e2: '3BEFIJ' },
-    { id: 'DF11', desc: '1º H vs 2º J',       e1: '1H', e2: '2J' },
-    { id: 'DF12', desc: '2º K vs 2º L',       e1: '2K', e2: '2L' },
-    { id: 'DF13', desc: '1º B vs 3º E/F/G/I/J', e1: '1B', e2: '3EFGIJ' },
-    { id: 'DF14', desc: '2º D vs 2º G',       e1: '2D', e2: '2G' },
-    { id: 'DF15', desc: '1º J vs 2º H',       e1: '1J', e2: '2H' },
-    { id: 'DF16', desc: '1º K vs 3º D/E/I/J/L', e1: '1K', e2: '3DEIJL' },
-  ],
-  '1/8': [
-    { id: 'OF1', desc: 'G DF3 vs G DF6',  e1: 'DF3', e2: 'DF6' },
-    { id: 'OF2', desc: 'G DF1 vs G DF4',  e1: 'DF1', e2: 'DF4' },
-    { id: 'OF3', desc: 'G DF2 vs G DF5',  e1: 'DF2', e2: 'DF5' },
-    { id: 'OF4', desc: 'G DF7 vs G DF8',  e1: 'DF7', e2: 'DF8' },
-    { id: 'OF5', desc: 'G DF12 vs G DF11', e1: 'DF12', e2: 'DF11' },
-    { id: 'OF6', desc: 'G DF9 vs G DF10', e1: 'DF9', e2: 'DF10' },
-    { id: 'OF7', desc: 'G DF14 vs G DF15', e1: 'DF14', e2: 'DF15' },
-    { id: 'OF8', desc: 'G DF13 vs G DF16', e1: 'DF13', e2: 'DF16' },
-  ],
-  '1/4': [
-    { id: 'CF1', desc: 'G OF1 vs G OF2', e1: 'OF1', e2: 'OF2' },
-    { id: 'CF2', desc: 'G OF5 vs G OF6', e1: 'OF5', e2: 'OF6' },
-    { id: 'CF3', desc: 'G OF3 vs G OF4', e1: 'OF3', e2: 'OF4' },
-    { id: 'CF4', desc: 'G OF7 vs G OF8', e1: 'OF7', e2: 'OF8' },
-  ],
-  '1/2': [
-    { id: 'SF1', desc: 'G CF1 vs G CF2', e1: 'CF1', e2: 'CF2' },
-    { id: 'SF2', desc: 'G CF3 vs G CF4', e1: 'CF3', e2: 'CF4' },
-  ],
-  '3-4': [
-    { id: 'TP', desc: 'Perdedor SF1 vs Perdedor SF2', e1: 'SF1L', e2: 'SF2L' },
-  ],
-  'FINAL': [
-    { id: 'FIN', desc: 'G SF1 vs G SF2', e1: 'SF1', e2: 'SF2' },
-  ]
-};
-
-// Participantes del Comunio y sus equipos elegidos
-const COMUNIO_PARTICIPANTES = [
-  {
-    nombre: 'Francia',
-    equipos: ['Francia', 'España', 'Argentina', 'Inglaterra', 'Portugal', 'Brasil', 'Países Bajos', 'Marruecos', 'Bélgica', 'Alemania', 'Croacia', 'Colombia']
-  },
-  {
-    nombre: 'Senegal',
-    equipos: ['Senegal', 'México', 'Estados Unidos', 'Uruguay', 'Japón', 'Suiza', 'Irán', 'Turquía', 'Ecuador', 'Austria', 'Costa de Marfil', 'Suecia']
-  },
-  {
-    nombre: 'Argelia',
-    equipos: ['Argelia', 'Egipto', 'Canadá', 'Noruega', 'Panamá', 'República Checa', 'Escocia', 'Túnez', 'R.D. del Congo', 'Ghana']
-  },
-  {
-    nombre: 'Uzbekistán',
-    equipos: ['Uzbekistán', 'Qatar', 'Iraq', 'Sudáfrica', 'Arabia Saudí', 'Jordania', 'Bosnia Herzegovina', 'Curaçao', 'Cabo Verde', 'Haití']
-  }
+// Bracket: cada partido tiene id, refs a los dos participantes
+// e1/e2 pueden ser: "1A","2B" (clasificados de grupo), o id de partido previo (ganador)
+const BRACKET = [
+  // 1/16
+  { id:'DF1',  r:0, e1:'2A',  e2:'2B',   next:'OF2', slot:0 },
+  { id:'DF2',  r:0, e1:'1C',  e2:'2F',   next:'OF3', slot:0 },
+  { id:'DF3',  r:0, e1:'1E',  e2:'3ABCDF', next:'OF1', slot:0 },
+  { id:'DF4',  r:0, e1:'1F',  e2:'2C',   next:'OF2', slot:1 },
+  { id:'DF5',  r:0, e1:'2E',  e2:'2I',   next:'OF3', slot:1 },
+  { id:'DF6',  r:0, e1:'1I',  e2:'3CDFGH', next:'OF1', slot:1 },
+  { id:'DF7',  r:0, e1:'1A',  e2:'3CEFHI', next:'OF4', slot:0 },
+  { id:'DF8',  r:0, e1:'1L',  e2:'3EHIJK', next:'OF4', slot:1 },
+  { id:'DF9',  r:0, e1:'1G',  e2:'3AEHIJ', next:'OF6', slot:0 },
+  { id:'DF10', r:0, e1:'1D',  e2:'3BEFIJ', next:'OF6', slot:1 },
+  { id:'DF11', r:0, e1:'1H',  e2:'2J',   next:'OF5', slot:1 },
+  { id:'DF12', r:0, e1:'2K',  e2:'2L',   next:'OF5', slot:0 },
+  { id:'DF13', r:0, e1:'1B',  e2:'3EFGIJ', next:'OF8', slot:0 },
+  { id:'DF14', r:0, e1:'2D',  e2:'2G',   next:'OF7', slot:0 },
+  { id:'DF15', r:0, e1:'1J',  e2:'2H',   next:'OF7', slot:1 },
+  { id:'DF16', r:0, e1:'1K',  e2:'3DEIJL', next:'OF8', slot:1 },
+  // 1/8
+  { id:'OF1',  r:1, e1:'DF3', e2:'DF6',  next:'CF1', slot:0 },
+  { id:'OF2',  r:1, e1:'DF1', e2:'DF4',  next:'CF1', slot:1 },
+  { id:'OF3',  r:1, e1:'DF2', e2:'DF5',  next:'CF3', slot:0 },
+  { id:'OF4',  r:1, e1:'DF7', e2:'DF8',  next:'CF3', slot:1 },
+  { id:'OF5',  r:1, e1:'DF12',e2:'DF11', next:'CF2', slot:0 },
+  { id:'OF6',  r:1, e1:'DF9', e2:'DF10', next:'CF2', slot:1 },
+  { id:'OF7',  r:1, e1:'DF14',e2:'DF15', next:'CF4', slot:0 },
+  { id:'OF8',  r:1, e1:'DF13',e2:'DF16', next:'CF4', slot:1 },
+  // 1/4
+  { id:'CF1',  r:2, e1:'OF1', e2:'OF2',  next:'SF1', slot:0 },
+  { id:'CF2',  r:2, e1:'OF5', e2:'OF6',  next:'SF1', slot:1 },
+  { id:'CF3',  r:2, e1:'OF3', e2:'OF4',  next:'SF2', slot:0 },
+  { id:'CF4',  r:2, e1:'OF7', e2:'OF8',  next:'SF2', slot:1 },
+  // 1/2
+  { id:'SF1',  r:3, e1:'CF1', e2:'CF2',  next:'FIN', slot:0, loserNext:'TP' },
+  { id:'SF2',  r:3, e1:'CF3', e2:'CF4',  next:'FIN', slot:1, loserNext:'TP' },
+  // 3º/4º
+  { id:'TP',   r:4, e1:'SF1L',e2:'SF2L', next:null,  slot:0 },
+  // Final
+  { id:'FIN',  r:4, e1:'SF1', e2:'SF2',  next:null,  slot:0 },
 ];
 
-// Puntuación Comunio
+const APUESTAS = [
+  { nombre: 'Íñigo Lop', equipos: ['España','Francia','Alemania','Uruguay','Turquía','México','Canadá','Egipto','República Checa','Nueva Zelanda','Bosnia Herzegovina','Ghana'] },
+  { nombre: 'Antonio',   equipos: ['Francia','Inglaterra','España','México','Japón','Uruguay','Paraguay','República Checa','Canadá','Sudáfrica','Bosnia Herzegovina','Ghana'] },
+  { nombre: 'Jon',       equipos: ['España','Francia','Brasil','Uruguay','Suiza','Japón','Noruega','Canadá','Costa de Marfil','Ghana','Arabia Saudí','Qatar'] },
+  { nombre: 'Íñigo Lariz', equipos: ['Francia','España','Portugal','Senegal','Suiza','Ecuador','Noruega','Costa de Marfil','Argelia','Ghana','Arabia Saudí','Bosnia Herzegovina'] },
+  { nombre: 'Javi',      equipos: ['Portugal','Marruecos','España','Senegal','Japón','Ecuador','Noruega','Paraguay','Argelia','Bosnia Herzegovina','Arabia Saudí','Ghana'] },
+  { nombre: 'Cid',       equipos: ['Alemania','Francia','Inglaterra','México','Estados Unidos','Japón','Egipto','Noruega','República Checa','Qatar','Ghana','Arabia Saudí'] },
+  { nombre: 'Isaac',     equipos: ['España','Francia','Portugal','Estados Unidos','México','Turquía','Noruega','Egipto','Suecia','Bosnia Herzegovina','Sudáfrica','Ghana'] },
+  { nombre: 'Miguel Ang',equipos: ['España','Inglaterra','Francia','Senegal','Estados Unidos','México','Noruega','Argelia','Egipto','Uzbekistán','Qatar','Ghana'] },
+  { nombre: 'Oscar',     equipos: ['Francia','España','Portugal','Turquía','Uruguay','México','Noruega','Egipto','República Checa','Ghana','Arabia Saudí','Bosnia Herzegovina'] },
+  { nombre: 'Gerardo',   equipos: ['Argentina','Francia','Marruecos','Uruguay','Ecuador','México','Noruega','Costa de Marfil','Paraguay','Ghana','Arabia Saudí','Sudáfrica'] },
+];
+
 const PUNTUACION_COMUNIO = {
-  faseGrupos: { ganado: 3, empate: 1 },
+  faseGrupos:    { ganado: 3, empate: 1 },
   dieciseisavos: { primero: 5, segundo: 3, tercero: 1 },
-  octavos: 15,
-  cuartos: 20,
-  semifinal: 30,
-  cuartoPuesto: 30,
-  tercerPuesto: 45,
+  octavos:       15,
+  cuartos:       20,
+  semifinal:     30,
+  cuartoPuesto:  30,
+  tercerPuesto:  45,
   segundoPuesto: 60,
-  campeon: 75
+  campeon:       75
 };

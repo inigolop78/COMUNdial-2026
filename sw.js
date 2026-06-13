@@ -5,6 +5,7 @@ const FILES = [
   './style.css',
   './app.js',
   './data.js',
+  './api.js',
   './manifest.json'
 ];
 
