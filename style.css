@@ -127,8 +127,8 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 .apuesta-card-header{display:flex;justify-content:space-between;align-items:center;padding:.5rem .8rem;background:var(--card2);border-bottom:1px solid var(--border);font-size:.8rem;}
 .apuesta-total{font-size:.95rem;font-weight:900;color:var(--accent);}
 .apuesta-teams{display:grid;grid-template-columns:repeat(5,1fr);gap:.25rem;padding:.4rem .6rem;}
-.apuesta-chip{background:var(--bg3);border-radius:5px;padding:.3rem .4rem;display:flex;justify-content:space-between;align-items:center;gap:.3rem;}
-.chip-name{font-size:.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;}
+.apuesta-chip{background:var(--bg3);border-radius:5px;padding:.3rem .4rem;display:flex;align-items:center;gap:.3rem;}
+.chip-name{font-size:.9rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .chip-pts{font-size:.9rem;font-weight:800;color:var(--accent);flex-shrink:0;}
 
 /* ===== PUNTUACIONES ===== */
