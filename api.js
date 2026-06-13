@@ -1,28 +1,7 @@
-const API_KEY  = '0502e169cbd544fe55413778498ff4ed';
-const API_HOST = 'v3.football.api-sports.io';
-const LEAGUE   = 1;
-const SEASON   = 2026;
+// API-Football widgets handle data fetching automatically
+// This file handles the sync between widget data and our app state
 
-const TEAM_NAME_MAP = {
-  'República Checa':    'Czech Republic',
-  'Países Bajos':       'Netherlands',
-  'R.D. del Congo':     'DR Congo',
-  'Costa de Marfil':    'Ivory Coast',
-  'Arabia Saudí':       'Saudi Arabia',
-  'Bosnia Herzegovina': 'Bosnia',
-  'Nueva Zelanda':      'New Zealand',
-  'Estados Unidos':     'USA',
-  'Corea del Sur':      'South Korea',
-  'Curaçao':            'Curacao',
-  'Iraq':               'Iraq',
-  'Irán':               'Iran',
-};
-
-function toApiName(n) { return TEAM_NAME_MAP[n] || n; }
-function fromApiName(n) {
-  const rev = Object.fromEntries(Object.entries(TEAM_NAME_MAP).map(([k,v])=>[v,k]));
-  return rev[n] || n;
-}
+const API_KEY = '0502e169cbd544fe55413778498ff4ed';
 
 function setSyncStatus(state) {
   const el = document.getElementById('sync-status');
@@ -31,66 +10,65 @@ function setSyncStatus(state) {
   el.title = { loading:'Actualizando...', ok:'Resultados actualizados', error:'Sin conexión', idle:'' }[state]||'';
 }
 
-// Use allorigins.win as CORS proxy to bypass browser restrictions
-async function fetchViaProxy(endpoint) {
-  const url = `https://${API_HOST}${endpoint}`;
-  const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-  
-  // allorigins can't forward custom headers, so try direct first
-  try {
-    const res = await fetch(url, {
-      headers: { 'x-rapidapi-key': API_KEY, 'x-rapidapi-host': API_HOST }
-    });
-    if (res.ok) return res.json();
-  } catch(e) { /* CORS blocked, fall through to proxy */ }
-
-  // Fallback: proxy (loses auth headers, may get 401)
-  const res = await fetch(proxyUrl);
-  if (!res.ok) throw new Error(`Proxy HTTP ${res.status}`);
-  const wrapper = await res.json();
-  return JSON.parse(wrapper.contents);
-}
-
-function matchFixtureToKey(homeName, awayName, goalsHome, goalsAway) {
-  const home = fromApiName(homeName);
-  const away = fromApiName(awayName);
-  for (const [grupo, partidos] of Object.entries(PARTIDOS_GRUPO)) {
-    for (const [idx, p] of partidos.entries()) {
-      const ah = toApiName(p[0]), aa = toApiName(p[1]);
-      const bh = toApiName(home), ba = toApiName(away);
-      if (ah===bh && aa===ba) return { key:`${grupo}-${idx}`, local:goalsHome, visit:goalsAway };
-      if (ah===ba && aa===bh) return { key:`${grupo}-${idx}`, local:goalsAway, visit:goalsHome };
-    }
-  }
-  return null;
+// Parse standings from API-Football widget data
+const TEAM_NAME_MAP = {
+  'Czech Republic':  'República Checa',
+  'Netherlands':     'Países Bajos',
+  'DR Congo':        'R.D. del Congo',
+  'Ivory Coast':     'Costa de Marfil',
+  'Saudi Arabia':    'Arabia Saudí',
+  'Bosnia':          'Bosnia Herzegovina',
+  'New Zealand':     'Nueva Zelanda',
+  'USA':             'Estados Unidos',
+  'South Korea':     'Corea del Sur',
+  'Curacao':         'Curaçao',
+  'Iran':            'Irán',
+};
+function fromApiName(n) { return TEAM_NAME_MAP[n] || n; }
+function toApiName(n) {
+  const rev = Object.fromEntries(Object.entries(TEAM_NAME_MAP).map(([k,v])=>[v,k]));
+  return rev[n] || n;
 }
 
 async function syncFromAPI() {
   setSyncStatus('loading');
   try {
-    const data = await fetchViaProxy(`/fixtures?league=${LEAGUE}&season=${SEASON}`);
-
-    if (data.errors?.token) throw new Error('Auth error: ' + data.errors.token);
+    const res = await fetch(`https://v3.football.api-sports.io/fixtures?league=1&season=2026&status=FT-AET-PEN`, {
+      headers: {
+        'x-rapidapi-key': API_KEY,
+        'x-rapidapi-host': 'v3.football.api-sports.io'
+      }
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.errors && Object.keys(data.errors).length) throw new Error(JSON.stringify(data.errors));
     if (!data.response?.length) throw new Error('No fixtures returned');
 
-    const FINISHED = ['FT','AET','PEN'];
     let updated = 0;
-
     data.response.forEach(fix => {
-      if (!FINISHED.includes(fix.fixture.status.short)) return;
       const gl = fix.goals.home, gv = fix.goals.away;
-      if (gl===null||gv===null) return;
-      const match = matchFixtureToKey(fix.teams.home.name, fix.teams.away.name, gl, gv);
-      if (!match) return;
-      const existing = resultados[match.key];
-      if (existing && !existing.fromAPI) return; // don't overwrite manual entries
-      resultados[match.key] = { local:match.local, visit:match.visit, fromAPI:true };
-      updated++;
+      if (gl === null || gv === null) return;
+      const home = fromApiName(fix.teams.home.name);
+      const away = fromApiName(fix.teams.away.name);
+      for (const [grupo, partidos] of Object.entries(PARTIDOS_GRUPO)) {
+        for (const [idx, p] of partidos.entries()) {
+          const ah = toApiName(p[0]), aa = toApiName(p[1]);
+          const bh = toApiName(home), ba = toApiName(away);
+          let local, visit;
+          if (ah===bh && aa===ba) { local=gl; visit=gv; }
+          else if (ah===ba && aa===bh) { local=gv; visit=gl; }
+          else continue;
+          const key = `${grupo}-${idx}`;
+          const existing = resultados[key];
+          if (existing && !existing.fromAPI) continue;
+          resultados[key] = { local, visit, fromAPI: true };
+          updated++;
+        }
+      }
     });
 
     if (updated > 0) { save(); renderAll(); }
     setSyncStatus('ok');
-    localStorage.setItem('mw26_last_sync', Date.now());
     console.log(`Sync OK — ${updated} results updated`);
   } catch(err) {
     console.warn('API sync failed:', err.message);
@@ -99,6 +77,18 @@ async function syncFromAPI() {
 }
 
 async function initSync() {
-  await syncFromAPI();
-  setInterval(syncFromAPI, 5 * 60 * 1000);
+  setTimeout(async () => {
+    await syncFromAPI();
+    setInterval(syncFromAPI, 3 * 60 * 1000);
+  }, 1500);
 }
+
+window.debugAPI = async () => {
+  const res = await fetch('https://v3.football.api-sports.io/fixtures?league=1&season=2026&status=FT', {
+    headers: { 'x-rapidapi-key': API_KEY, 'x-rapidapi-host': 'v3.football.api-sports.io' }
+  });
+  const data = await res.json();
+  console.log('Results:', data.results, 'Errors:', data.errors);
+  console.log('First fixture:', data.response?.[0]?.teams);
+  return data;
+};

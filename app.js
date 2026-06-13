@@ -372,19 +372,12 @@ function renderApuestas() {
 
   const medals = ['🥇','🥈','🥉','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
 
-  const rankDiv = document.createElement('div');
-  rankDiv.className = 'apuestas-ranking';
-  participantes.forEach((p,i) => {
-    const row = document.createElement('div');
-    row.className = `rank-row${i===0?' rank-first':''}`;
-    row.innerHTML = `
-      <span class="rank-medal">${medals[i]}</span>
-      <span class="rank-name">${p.nombre}</span>
-      <span class="rank-pts">${p.total} <small>pts</small></span>
-    `;
-    rankDiv.appendChild(row);
-  });
-  container.appendChild(rankDiv);
+  // Layout: cards on left, ranking table on right
+  const apuestasLayout = document.createElement('div');
+  apuestasLayout.className = 'apuestas-layout';
+
+  const cardsCol = document.createElement('div');
+  cardsCol.className = 'apuestas-cards-col';
 
   participantes.forEach((p,i) => {
     const card = document.createElement('div');
@@ -404,8 +397,28 @@ function renderApuestas() {
         `).join('')}
       </div>
     `;
-    container.appendChild(card);
+    cardsCol.appendChild(card);
   });
+
+  const rankCol = document.createElement('div');
+  rankCol.className = 'apuestas-rank-col';
+  const rankDiv = document.createElement('div');
+  rankDiv.className = 'apuestas-ranking';
+  participantes.forEach((p,i) => {
+    const row = document.createElement('div');
+    row.className = `rank-row${i===0?' rank-first':''}`;
+    row.innerHTML = `
+      <span class="rank-medal">${medals[i]}</span>
+      <span class="rank-name">${p.nombre}</span>
+      <span class="rank-pts">${p.total} <small>pts</small></span>
+    `;
+    rankDiv.appendChild(row);
+  });
+  rankCol.appendChild(rankDiv);
+
+  apuestasLayout.appendChild(cardsCol);
+  apuestasLayout.appendChild(rankCol);
+  container.appendChild(apuestasLayout);
 }
 
 // ===== MODAL =====
