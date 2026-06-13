@@ -1,15 +1,9 @@
-const FD_TOKEN = '0d8d85a0c9334a2da73dfedb45d9c62e';
-
-// Use a CORS proxy since football-data.org blocks direct browser requests
-// corsproxy.io is a free, reliable CORS proxy
-const PROXY = 'https://corsproxy.io/?';
-const FD_BASE = 'https://api.football-data.org/v4';
+const WORKER_URL = 'https://mundial-proxy.inigolop.workers.dev';
 
 const TEAM_NAME_MAP = {
   'Czech Republic':         'República Checa',
   'Netherlands':            'Países Bajos',
   'DR Congo':               'R.D. del Congo',
-  'Congo DR':               'R.D. del Congo',
   "Côte d'Ivoire":          'Costa de Marfil',
   'Ivory Coast':            'Costa de Marfil',
   'Saudi Arabia':           'Arabia Saudí',
@@ -54,34 +48,6 @@ function setSyncStatus(state) {
   el.title = { loading:'Actualizando...', ok:'Actualizado', error:'Sin conexión', idle:'' }[state]||'';
 }
 
-async function fdFetch(endpoint) {
-  const url = `${FD_BASE}${endpoint}`;
-  // Try multiple CORS proxies in order
-  const proxies = [
-    // thingproxy passes custom headers
-    `https://thingproxy.freeboard.io/fetch/${url}`,
-    // allorigins wraps response in .contents
-    `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  ];
-  // Direct call first
-  try {
-    const res = await fetch(url, { headers: { 'X-Auth-Token': FD_TOKEN }, mode: 'cors' });
-    if (res.ok) return res.json();
-  } catch(e) {}
-  // Try proxies
-  for (const proxyUrl of proxies) {
-    try {
-      const res = await fetch(proxyUrl, {
-        headers: { 'X-Auth-Token': FD_TOKEN, 'X-Requested-With': 'XMLHttpRequest' }
-      });
-      if (!res.ok) continue;
-      const text = await res.text();
-      return JSON.parse(text);
-    } catch(e) { continue; }
-  }
-  throw new Error('All proxy attempts failed');
-}
-
 function matchFixture(home, away, gl, gv) {
   for (const [grupo, partidos] of Object.entries(PARTIDOS_GRUPO)) {
     for (const [idx, p] of partidos.entries()) {
@@ -95,7 +61,9 @@ function matchFixture(home, away, gl, gv) {
 async function syncFromAPI() {
   setSyncStatus('loading');
   try {
-    const data = await fdFetch('/competitions/WC/matches?status=FINISHED');
+    const res = await fetch(WORKER_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
     if (!data.matches?.length) throw new Error('No finished matches');
 
     let updated = 0;
@@ -131,7 +99,8 @@ async function initSync() {
 
 window.debugAPI = async () => {
   try {
-    const data = await fdFetch('/competitions/WC/matches?status=FINISHED');
+    const res = await fetch(WORKER_URL);
+    const data = await res.json();
     console.log('Finished matches:', data.matches?.length);
     console.log('First:', data.matches?.[0]?.homeTeam?.name, 'vs', data.matches?.[0]?.awayTeam?.name, data.matches?.[0]?.score?.fullTime);
     return data;
