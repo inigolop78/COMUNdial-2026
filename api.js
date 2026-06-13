@@ -70,6 +70,9 @@ async function syncFromAPI() {
     data.matches.forEach(m => {
       const gl = m.score?.fullTime?.home;
       const gv = m.score?.fullTime?.away;
+      // Accept FINISHED, IN_PLAY, PAUSED as having scores
+      const status = m.status;
+      if (!['FINISHED','IN_PLAY','PAUSED','SUSPENDED'].includes(status)) return;
       if (gl == null || gv == null) return;
       const home = fromApiName(m.homeTeam.name);
       const away = fromApiName(m.awayTeam.name);
