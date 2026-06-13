@@ -158,10 +158,12 @@ function renderFaseGrupos() {
   const standings = getAllStandings();
   const grupKeys = Object.keys(GRUPOS);
 
-  for (let i=0; i<grupKeys.length; i+=4) {
+  for (let i=0; i<grupKeys.length; i+=6) {
+    const wrap = document.createElement('div');
+    wrap.className = 'group-row-wrap';
     const row = document.createElement('div');
     row.className = 'group-row';
-    [grupKeys[i], grupKeys[i+1], grupKeys[i+2], grupKeys[i+3]].forEach(g => {
+    [grupKeys[i], grupKeys[i+1], grupKeys[i+2], grupKeys[i+3], grupKeys[i+4], grupKeys[i+5]].forEach(g => {
       if (!g) return;
       const s = standings[g];
       const block = document.createElement('div');
@@ -211,7 +213,8 @@ function renderFaseGrupos() {
       block.appendChild(tbl);
       row.appendChild(block);
     });
-    container.appendChild(row);
+    wrap.appendChild(row);
+    container.appendChild(wrap);
   }
 }
 

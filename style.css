@@ -58,8 +58,9 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 .section-header h2{font-size:1rem;font-weight:700;}
 
 /* ===== FASE DE GRUPOS ===== */
-.group-row{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;padding:.5rem .5rem 0;}
-.group-col{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
+.group-row-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.group-row{display:grid;grid-template-columns:repeat(6,160px);gap:.5rem;padding:.5rem .5rem 0;min-width:max-content;}
+.group-col{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;width:160px;min-width:160px;}
 .group-col-header{display:flex;align-items:center;gap:.4rem;padding:.4rem .6rem;background:var(--card2);border-bottom:1px solid var(--border);}
 .group-badge{width:22px;height:22px;background:var(--accent);color:var(--bg);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;flex-shrink:0;}
 .group-col-header span{font-size:.7rem;color:var(--text2);}
@@ -92,7 +93,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 .pos-3{background:#a87450;color:#fff;}
 .pos-4{background:var(--bg3);color:var(--text3);}
 .pts-cell{font-weight:800;color:var(--accent);}
-.team-name-cell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60px;}
+.team-name-cell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:80px;}
 .dif-pos{color:var(--green);font-weight:700;}
 .dif-neg{color:var(--red);font-weight:700;}
 
@@ -173,7 +174,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 
 /* PUNTUACIONES LAYOUT */
-.pts-layout{display:flex;flex-direction:column;gap:.6rem;padding:.6rem;}
+
 .pts-main-wrap{overflow-x:auto;}
 .pts-main-table{width:100%;border-collapse:collapse;font-size:.65rem;background:var(--card);border-radius:var(--r);overflow:hidden;}
 .pts-main-table th{background:var(--card2);padding:.35rem .4rem;text-align:center;color:var(--text2);font-size:.6rem;white-space:nowrap;border-bottom:1px solid var(--border);}
