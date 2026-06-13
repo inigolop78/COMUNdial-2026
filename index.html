@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a1628">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Mundial 2026">
+  <link rel="manifest" href="manifest.json">
+  <title>Comunio Mundial 2026</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- SPLASH -->
+  <div id="splash">
+    <div class="splash-ball">⚽</div>
+    <h1>MUNDIAL<br><span>2026</span></h1>
+    <p>Comunio</p>
+  </div>
+
+  <!-- APP SHELL -->
+  <div id="app" class="hidden">
+
+    <!-- HEADER -->
+    <header>
+      <div class="header-inner">
+        <span class="header-logo">⚽</span>
+        <h1 class="header-title">Mundial 2026</h1>
+        <span class="header-sub">Comunio</span>
+      </div>
+    </header>
+
+    <!-- NAV -->
+    <nav id="main-nav">
+      <button class="nav-btn active" data-section="partidos">
+        <span class="nav-icon">🗓️</span>
+        <span>Partidos</span>
+      </button>
+      <button class="nav-btn" data-section="grupos">
+        <span class="nav-icon">📊</span>
+        <span>Grupos</span>
+      </button>
+      <button class="nav-btn" data-section="eliminatorias">
+        <span class="nav-icon">🏆</span>
+        <span>Eliminatorias</span>
+      </button>
+      <button class="nav-btn" data-section="comunio">
+        <span class="nav-icon">⭐</span>
+        <span>Comunio</span>
+      </button>
+    </nav>
+
+    <!-- CONTENT -->
+    <main id="content">
+
+      <!-- PARTIDOS -->
+      <section id="sec-partidos" class="section active">
+        <div class="section-header">
+          <h2>Resultados</h2>
+          <div class="group-tabs" id="group-tabs"></div>
+        </div>
+        <div id="partidos-container"></div>
+      </section>
+
+      <!-- GRUPOS -->
+      <section id="sec-grupos" class="section">
+        <div class="section-header">
+          <h2>Clasificación</h2>
+        </div>
+        <div id="grupos-container"></div>
+      </section>
+
+      <!-- ELIMINATORIAS -->
+      <section id="sec-eliminatorias" class="section">
+        <div class="section-header">
+          <h2>Eliminatorias</h2>
+        </div>
+        <div id="eliminatorias-container"></div>
+      </section>
+
+      <!-- COMUNIO -->
+      <section id="sec-comunio" class="section">
+        <div class="section-header">
+          <h2>Puntuaciones</h2>
+        </div>
+        <div id="comunio-container"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL RESULTADO -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title">Resultado</h3>
+        <button id="modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-teams">
+          <span id="modal-local" class="modal-team"></span>
+          <div class="modal-score">
+            <input type="number" id="score-local" min="0" max="99" placeholder="–">
+            <span class="score-sep">:</span>
+            <input type="number" id="score-visit" min="0" max="99" placeholder="–">
+          </div>
+          <span id="modal-visit" class="modal-team"></span>
+        </div>
+        <div class="modal-actions">
+          <button id="modal-clear" class="btn-secondary">Borrar resultado</button>
+          <button id="modal-save" class="btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
