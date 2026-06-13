@@ -37,6 +37,22 @@ const TEAM_NAME_MAP = {
   'Uzbekistan':             'Uzbekistán',
   'Cape Verde':             'Cabo Verde',
   'South Africa':           'Sudáfrica',
+  'Portugal':               'Portugal',
+  'Argentina':              'Argentina',
+  'Brazil':                 'Brasil',
+  'Colombia':               'Colombia',
+  'Ecuador':                'Ecuador',
+  'Uruguay':                'Uruguay',
+  'Paraguay':               'Paraguay',
+  'Australia':              'Australia',
+  'Ghana':                  'Ghana',
+  'England':                'Inglaterra',
+  'Qatar':                  'Qatar',
+  'Iraq':                   'Iraq',
+  'Senegal':                'Senegal',
+  'Austria':                'Austria',
+  'Turkey':                 'Turquía',
+  'Türkiye':                'Turquía',
 };
 
 function fromApiName(n) { return TEAM_NAME_MAP[n] || n; }
@@ -64,15 +80,14 @@ async function syncFromAPI() {
     const res = await fetch(WORKER_URL);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    if (!data.matches?.length) throw new Error('No finished matches');
+    if (!data.matches?.length) throw new Error('No matches');
 
+    const FINISHED = ['FINISHED','IN_PLAY','PAUSED'];
     let updated = 0;
     data.matches.forEach(m => {
+      if (!FINISHED.includes(m.status)) return;
       const gl = m.score?.fullTime?.home;
       const gv = m.score?.fullTime?.away;
-      // Accept FINISHED, IN_PLAY, PAUSED as having scores
-      const status = m.status;
-      if (!['FINISHED','IN_PLAY','PAUSED','SUSPENDED'].includes(status)) return;
       if (gl == null || gv == null) return;
       const home = fromApiName(m.homeTeam.name);
       const away = fromApiName(m.awayTeam.name);
@@ -104,8 +119,18 @@ window.debugAPI = async () => {
   try {
     const res = await fetch(WORKER_URL);
     const data = await res.json();
-    console.log('Finished matches:', data.matches?.length);
-    console.log('First:', data.matches?.[0]?.homeTeam?.name, 'vs', data.matches?.[0]?.awayTeam?.name, data.matches?.[0]?.score?.fullTime);
+    console.log('Total matches:', data.matches?.length);
+    const finished = data.matches?.filter(m => ['FINISHED','IN_PLAY','PAUSED'].includes(m.status));
+    console.log('Finished:', finished?.length);
+    console.log('First:', finished?.[0]?.homeTeam?.name, 'vs', finished?.[0]?.awayTeam?.name, finished?.[0]?.score?.fullTime);
+    // Check unmatched
+    let unmatched = [];
+    finished?.forEach(m => {
+      const home = fromApiName(m.homeTeam.name);
+      const away = fromApiName(m.awayTeam.name);
+      if (!matchFixture(home, away, 0, 0)) unmatched.push(`${m.homeTeam.name} vs ${m.awayTeam.name}`);
+    });
+    if (unmatched.length) console.log('Unmatched:', unmatched);
     return data;
   } catch(e) { console.error('Debug failed:', e.message); }
 };
