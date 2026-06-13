@@ -58,7 +58,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 .section-header h2{font-size:1rem;font-weight:700;}
 
 /* ===== FASE DE GRUPOS ===== */
-.group-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;padding:.5rem .5rem 0;}
+.group-row{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;padding:.5rem .5rem 0;}
 .group-col{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
 .group-col-header{display:flex;align-items:center;gap:.4rem;padding:.4rem .6rem;background:var(--card2);border-bottom:1px solid var(--border);}
 .group-badge{width:22px;height:22px;background:var(--accent);color:var(--bg);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;flex-shrink:0;}
@@ -190,3 +190,22 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 .pts-summary-table tr:last-child td{border-bottom:none;}
 .pts-val{font-weight:700;color:var(--accent);text-align:right;}
 .pts-val.gold{color:#e8c63a;font-size:.9rem;}
+
+/* PUNTUACIONES - layout lateral */
+.pts-layout{display:flex;flex-direction:row;gap:.6rem;padding:.6rem;align-items:flex-start;}
+.pts-main-wrap{flex:1;overflow-x:auto;min-width:0;}
+.pts-main-table{width:100%;border-collapse:collapse;font-size:.6rem;background:var(--card);border-radius:var(--r);overflow:hidden;}
+.pts-main-table th{background:var(--card2);padding:.3rem .35rem;text-align:center;color:var(--text2);font-size:.55rem;white-space:nowrap;border-bottom:1px solid var(--border);}
+.pts-main-table th:first-child,.pts-main-table th:nth-child(2){text-align:left;}
+.pts-main-table td{padding:.28rem .35rem;text-align:center;border-bottom:1px solid var(--border);}
+.pts-main-table tr:last-child td{border-bottom:none;}
+.pts-team{text-align:left!important;font-weight:600;white-space:nowrap;font-size:.58rem;}
+.pts-grp{font-weight:700;color:var(--accent);text-align:center!important;}
+.pts-total{font-weight:800;color:var(--accent);}
+.pts-summary-wrap{width:130px;flex-shrink:0;background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;position:sticky;top:0;}
+.pts-summary-table{width:100%;border-collapse:collapse;}
+.pts-summary-table th{background:var(--card2);padding:.4rem .5rem;text-align:center;font-size:.7rem;color:var(--accent);border-bottom:1px solid var(--border);font-weight:800;letter-spacing:.05em;}
+.pts-summary-table td{padding:.35rem .5rem;font-size:.68rem;border-bottom:1px solid var(--border);}
+.pts-summary-table tr:last-child td{border-bottom:none;}
+.pts-summary-table td:last-child{font-weight:700;color:var(--accent);text-align:right;white-space:nowrap;}
+.pts-summary-table tr:last-child td{color:#e8c63a;font-weight:800;}

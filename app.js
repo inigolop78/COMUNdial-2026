@@ -288,6 +288,7 @@ function renderPuntuaciones() {
   const container = document.getElementById('puntuaciones-container');
   container.innerHTML = '';
   const standings = getAllStandings();
+  const teamPts = calcTeamPoints(standings);
 
   const wrap = document.createElement('div');
   wrap.className = 'pts-layout';
@@ -297,16 +298,11 @@ function renderPuntuaciones() {
   tableWrap.className = 'pts-main-wrap';
   const tbl = document.createElement('table');
   tbl.className = 'pts-main-table';
-  tbl.innerHTML = `
-    <thead>
-      <tr>
-        <th>Equipo</th><th>Gr</th><th>Grupos</th><th>1/16</th><th>Octavos</th>
-        <th>Cuartos</th><th>Semi</th><th>4º</th><th>3º</th><th>2º</th><th>🏆</th><th>Total</th>
-      </tr>
-    </thead>
-  `;
+  tbl.innerHTML = `<thead><tr>
+    <th>Equipo</th><th>Gr</th><th>GF</th><th>1/16</th><th>Oct</th>
+    <th>Cto</th><th>Semi</th><th>4º</th><th>3º</th><th>2º</th><th>🏆</th><th>Tot</th>
+  </tr></thead>`;
   const tbody = document.createElement('tbody');
-  const teamPts = calcTeamPoints(standings);
   Object.keys(GRUPOS).forEach(g => {
     GRUPOS[g].forEach(eq => {
       const bd = calcTeamBreakdown(eq, standings);
@@ -333,21 +329,23 @@ function renderPuntuaciones() {
   tableWrap.appendChild(tbl);
   wrap.appendChild(tableWrap);
 
-  // Summary table
+  // Summary table on the right
   const summaryWrap = document.createElement('div');
   summaryWrap.className = 'pts-summary-wrap';
   summaryWrap.innerHTML = `
     <table class="pts-summary-table">
       <thead><tr><th colspan="2">Puntuación</th></tr></thead>
       <tbody>
-        <tr><td>Dieciseisavos</td><td class="pts-val">5 pts 1º · 3 pts 2º · 1 pt 3º</td></tr>
-        <tr><td>Octavos</td><td class="pts-val">15 pts</td></tr>
-        <tr><td>Cuartos</td><td class="pts-val">20 pts</td></tr>
-        <tr><td>Semifinal</td><td class="pts-val">30 pts</td></tr>
-        <tr><td>4º Puesto</td><td class="pts-val">30 pts</td></tr>
-        <tr><td>3er Puesto</td><td class="pts-val">45 pts</td></tr>
-        <tr><td>2º Puesto</td><td class="pts-val">60 pts</td></tr>
-        <tr><td>🏆 Campeón</td><td class="pts-val gold">75 pts</td></tr>
+        <tr><td>1/16 · 1º grupo</td><td>5</td></tr>
+        <tr><td>1/16 · 2º grupo</td><td>3</td></tr>
+        <tr><td>1/16 · 3º grupo</td><td>1</td></tr>
+        <tr><td>Octavos</td><td>15</td></tr>
+        <tr><td>Cuartos</td><td>20</td></tr>
+        <tr><td>Semifinal</td><td>30</td></tr>
+        <tr><td>4º Puesto</td><td>30</td></tr>
+        <tr><td>3er Puesto</td><td>45</td></tr>
+        <tr><td>2º Puesto</td><td>60</td></tr>
+        <tr><td>🏆 Campeón</td><td>75</td></tr>
       </tbody>
     </table>
   `;

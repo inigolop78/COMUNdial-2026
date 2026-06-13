@@ -1,17 +1,24 @@
-const API_KEY = '0502e169cbd544fe55413778498ff4ed';
+const API_KEY  = '0502e169cbd544fe55413778498ff4ed';
 const API_HOST = 'v3.football.api-sports.io';
 
+// FIFA World Cup 2026 league ID in API-Football is 1
+// Season 2026, confirmed tournament
+const MUNDIAL_LEAGUE_ID = 1;
+const MUNDIAL_SEASON    = 2026;
+
 const TEAM_NAME_MAP = {
-  'República Checa': 'Czech Republic',
-  'Países Bajos':    'Netherlands',
-  'R.D. del Congo':  'DR Congo',
-  'Costa de Marfil': 'Ivory Coast',
-  'Arabia Saudí':    'Saudi Arabia',
+  'República Checa':    'Czech Republic',
+  'Países Bajos':       'Netherlands',
+  'R.D. del Congo':     'DR Congo',
+  'Costa de Marfil':    'Ivory Coast',
+  'Arabia Saudí':       'Saudi Arabia',
   'Bosnia Herzegovina': 'Bosnia',
-  'Nueva Zelanda':   'New Zealand',
-  'Estados Unidos':  'USA',
-  'Corea del Sur':   'South Korea',
-  'Curaçao':         'Curacao',
+  'Nueva Zelanda':      'New Zealand',
+  'Estados Unidos':     'USA',
+  'Corea del Sur':      'South Korea',
+  'Curaçao':            'Curacao',
+  'Iraq':               'Iraq',
+  'Irán':               'Iran',
 };
 
 function toApiName(n)   { return TEAM_NAME_MAP[n] || n; }
@@ -24,74 +31,38 @@ function setSyncStatus(state) {
   const el = document.getElementById('sync-status');
   if (!el) return;
   el.className = `sync-${state}`;
-  el.title = { loading:'Actualizando...', ok:'Datos actualizados', error:'Sin conexión — datos locales', idle:'' }[state] || '';
+  el.title = {
+    loading: 'Actualizando resultados...',
+    ok:      'Resultados actualizados',
+    error:   'Sin conexión — usando datos locales',
+    idle:    ''
+  }[state] || '';
 }
 
 async function fetchAPI(endpoint) {
   const res = await fetch(`https://${API_HOST}${endpoint}`, {
-    headers: { 'x-rapidapi-key': API_KEY, 'x-rapidapi-host': API_HOST }
+    headers: {
+      'x-rapidapi-key':  API_KEY,
+      'x-rapidapi-host': API_HOST
+    }
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
 
-async function findLeagueId() {
-  const cached = localStorage.getItem('mw26_league_id');
-  if (cached) return parseInt(cached);
-  // Try multiple search strategies
-  const attempts = [
-    '/leagues?name=FIFA World Cup&season=2026',
-    '/leagues?name=World Cup&season=2026',
-    '/leagues?code=WC&season=2026',
-    '/leagues?type=Cup&season=2026&country=World',
-  ];
-  for (const url of attempts) {
-    try {
-      const data = await fetchAPI(url);
-      const league = data.response?.find(l =>
-        l.league?.name?.toLowerCase().includes('world cup') ||
-        l.league?.name?.toLowerCase().includes('mundial')
-      );
-      if (league?.league?.id) {
-        localStorage.setItem('mw26_league_id', league.league.id);
-        console.log('Found league:', league.league.name, 'ID:', league.league.id);
-        return league.league.id;
-      }
-    } catch(e) { continue; }
-  }
-  return null;
-}
-
-async function fetchGroupFixtures(leagueId) {
-  // Try fetching group stage rounds
-  const rounds = ['Group Stage - 1','Group Stage - 2','Group Stage - 3','Group Stage'];
-  let all = [];
-  for (const round of rounds) {
-    try {
-      const data = await fetchAPI(`/fixtures?league=${leagueId}&season=2026&round=${encodeURIComponent(round)}`);
-      if (data.response?.length) all = all.concat(data.response);
-    } catch(e) { continue; }
-  }
-  // Deduplicate by fixture id
-  const seen = new Set();
-  return all.filter(f => { if (seen.has(f.fixture.id)) return false; seen.add(f.fixture.id); return true; });
-}
-
-function matchFixture(fixture) {
-  const home = fromApiName(fixture.teams.home.name);
-  const away = fromApiName(fixture.teams.away.name);
-  const status = fixture.fixture.status.short;
-  const finished = ['FT','AET','PEN'].includes(status);
-  if (!finished) return null;
-  const gl = fixture.goals.home, gv = fixture.goals.away;
-  if (gl === null || gv === null) return null;
-
+function matchFixtureToKey(homeName, awayName, goalsHome, goalsAway) {
+  const home = fromApiName(homeName);
+  const away = fromApiName(awayName);
   for (const [grupo, partidos] of Object.entries(PARTIDOS_GRUPO)) {
     for (const [idx, p] of partidos.entries()) {
-      const ph = toApiName(p[0]), pa = toApiName(p[1]);
-      const ah = toApiName(home), aa = toApiName(away);
-      if (ph===ah && pa===aa) return { key:`${grupo}-${idx}`, local:gl, visit:gv };
-      if (ph===aa && pa===ah) return { key:`${grupo}-${idx}`, local:gv, visit:gl };
+      const p0 = p[0], p1 = p[1];
+      const ah = toApiName(p0), aa = toApiName(p1);
+      if (ah === toApiName(home) && aa === toApiName(away)) {
+        return { key: `${grupo}-${idx}`, local: goalsHome, visit: goalsAway };
+      }
+      if (ah === toApiName(away) && aa === toApiName(home)) {
+        return { key: `${grupo}-${idx}`, local: goalsAway, visit: goalsHome };
+      }
     }
   }
   return null;
@@ -100,26 +71,43 @@ function matchFixture(fixture) {
 async function syncFromAPI() {
   setSyncStatus('loading');
   try {
-    const leagueId = await findLeagueId();
-    if (!leagueId) throw new Error('League not found');
+    // Fetch all fixtures for the World Cup 2026
+    const data = await fetchAPI(
+      `/fixtures?league=${MUNDIAL_LEAGUE_ID}&season=${MUNDIAL_SEASON}`
+    );
 
-    const fixtures = await fetchGroupFixtures(leagueId);
+    if (!data.response || data.errors?.token) {
+      throw new Error(data.errors?.token || 'API error');
+    }
+
     let updated = 0;
+    const FINISHED = ['FT', 'AET', 'PEN'];
 
-    fixtures.forEach(fix => {
-      const match = matchFixture(fix);
+    data.response.forEach(fix => {
+      const status = fix.fixture.status.short;
+      if (!FINISHED.includes(status)) return;
+      const gl = fix.goals.home, gv = fix.goals.away;
+      if (gl === null || gv === null) return;
+
+      const match = matchFixtureToKey(
+        fix.teams.home.name, fix.teams.away.name, gl, gv
+      );
       if (!match) return;
+
       // Don't overwrite manually entered results
       const existing = resultados[match.key];
       if (existing && !existing.fromAPI) return;
+
       resultados[match.key] = { local: match.local, visit: match.visit, fromAPI: true };
       updated++;
     });
 
     if (updated > 0) { save(); renderAll(); }
+
     setSyncStatus('ok');
     localStorage.setItem('mw26_last_sync', Date.now());
-    console.log(`Sync OK — ${updated} results updated`);
+    console.log(`Sync OK — ${updated} results updated from ${data.response.length} fixtures`);
+
   } catch(err) {
     console.warn('API sync failed:', err.message);
     setSyncStatus('error');
