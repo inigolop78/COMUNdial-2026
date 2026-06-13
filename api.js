@@ -56,21 +56,30 @@ function setSyncStatus(state) {
 
 async function fdFetch(endpoint) {
   const url = `${FD_BASE}${endpoint}`;
-  // Try direct first (works on localhost), then proxy
+  // Try multiple CORS proxies in order
+  const proxies = [
+    // thingproxy passes custom headers
+    `https://thingproxy.freeboard.io/fetch/${url}`,
+    // allorigins wraps response in .contents
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+  ];
+  // Direct call first
   try {
-    const res = await fetch(url, { headers: { 'X-Auth-Token': FD_TOKEN } });
+    const res = await fetch(url, { headers: { 'X-Auth-Token': FD_TOKEN }, mode: 'cors' });
     if (res.ok) return res.json();
   } catch(e) {}
-  // Fallback via CORS proxy
-  const proxyUrl = `${PROXY}${encodeURIComponent(url)}`;
-  const res = await fetch(proxyUrl, {
-    headers: {
-      'X-Auth-Token': FD_TOKEN,
-      'x-requested-with': 'XMLHttpRequest'
-    }
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return res.json();
+  // Try proxies
+  for (const proxyUrl of proxies) {
+    try {
+      const res = await fetch(proxyUrl, {
+        headers: { 'X-Auth-Token': FD_TOKEN, 'X-Requested-With': 'XMLHttpRequest' }
+      });
+      if (!res.ok) continue;
+      const text = await res.text();
+      return JSON.parse(text);
+    } catch(e) { continue; }
+  }
+  throw new Error('All proxy attempts failed');
 }
 
 function matchFixture(home, away, gl, gv) {

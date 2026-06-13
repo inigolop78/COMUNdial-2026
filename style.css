@@ -127,9 +127,9 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 .apuesta-card-header{display:flex;justify-content:space-between;align-items:center;padding:.5rem .8rem;background:var(--card2);border-bottom:1px solid var(--border);font-size:.8rem;}
 .apuesta-total{font-size:.95rem;font-weight:900;color:var(--accent);}
 .apuesta-teams{display:grid;grid-template-columns:repeat(5,1fr);gap:.25rem;padding:.4rem .6rem;}
-.apuesta-chip{background:var(--bg3);border-radius:4px;padding:.12rem .2rem;display:flex;justify-content:space-between;align-items:center;gap:.1rem;}
-.chip-name{font-size:.56rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;}
-.chip-pts{font-size:.6rem;font-weight:800;color:var(--accent);flex-shrink:0;padding-left:.15rem;}
+.apuesta-chip{background:var(--bg3);border-radius:5px;padding:.3rem .4rem;display:flex;justify-content:space-between;align-items:center;gap:.3rem;}
+.chip-name{font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;}
+.chip-pts{font-size:.82rem;font-weight:800;color:var(--accent);flex-shrink:0;}
 
 /* ===== PUNTUACIONES ===== */
 .pts-table-wrap{margin:.6rem;background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
@@ -194,19 +194,20 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 
 /* PUNTUACIONES - layout lateral */
 .pts-layout{display:flex;flex-direction:row;gap:.6rem;padding:.6rem;align-items:flex-start;}
-.pts-main-wrap{flex:1;overflow-x:auto;min-width:0;}
-.pts-main-table{width:auto;border-collapse:collapse;font-size:.6rem;background:var(--card);border-radius:var(--r);overflow:hidden;}
-.pts-main-table th{background:var(--card2);padding:.15rem .18rem;text-align:center;color:var(--text2);font-size:.5rem;white-space:nowrap;border-bottom:1px solid var(--border);width:1%;}
-.pts-main-table th:first-child{text-align:left;width:auto;}.pts-main-table th:nth-child(2){text-align:left;width:1%;}
-.pts-main-table td{padding:.15rem .18rem;text-align:center;border-bottom:1px solid var(--border);font-size:.55rem;white-space:nowrap;width:1%;}
+.pts-main-wrap{overflow-x:auto;}
+.pts-main-table{width:100%;border-collapse:collapse;font-size:.85rem;background:var(--card);border-radius:var(--r);overflow:hidden;}
+.pts-main-table th{background:var(--card2);padding:.4rem .5rem;text-align:center;color:var(--text2);font-size:.78rem;white-space:nowrap;border-bottom:1px solid var(--border);}
+.pts-main-table th:first-child{text-align:left;}
+.pts-main-table th:nth-child(2){text-align:center;}
+.pts-main-table td{padding:.38rem .5rem;text-align:center;border-bottom:1px solid var(--border);font-size:.82rem;white-space:nowrap;}
 .pts-main-table tr:last-child td{border-bottom:none;}
-.pts-team{text-align:left!important;font-weight:600;white-space:nowrap;font-size:.54rem;padding-right:.3rem;}
-.pts-grp{font-weight:700;color:var(--accent);text-align:center!important;width:1px;white-space:nowrap;}
-.pts-total{font-weight:800;color:var(--accent);width:1px;white-space:nowrap;}
+.pts-team{text-align:left!important;font-weight:600;white-space:nowrap;}
+.pts-grp{font-weight:700;color:var(--accent);text-align:center!important;}
+.pts-total{font-weight:800;color:var(--accent);}
 .pts-summary-wrap{width:130px;flex-shrink:0;background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;position:sticky;top:0;}
 .pts-summary-table{width:100%;border-collapse:collapse;}
-.pts-summary-table th{background:var(--card2);padding:.4rem .5rem;text-align:center;font-size:.7rem;color:var(--accent);border-bottom:1px solid var(--border);font-weight:800;letter-spacing:.05em;}
-.pts-summary-table td{padding:.35rem .5rem;font-size:.68rem;border-bottom:1px solid var(--border);}
+.pts-summary-table th{background:var(--card2);padding:.4rem .6rem;text-align:center;font-size:.85rem;color:var(--accent);border-bottom:1px solid var(--border);font-weight:800;letter-spacing:.05em;}
+.pts-summary-table td{padding:.38rem .6rem;font-size:.82rem;border-bottom:1px solid var(--border);}
 .pts-summary-table tr:last-child td{border-bottom:none;}
 .pts-summary-table td:last-child{font-weight:700;color:var(--accent);text-align:right;white-space:nowrap;}
 .pts-summary-table tr:last-child td{color:#e8c63a;font-weight:800;}
@@ -216,9 +217,9 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 .apuestas-cards-col{flex:1;min-width:0;display:flex;flex-direction:column;gap:.4rem;}
 .apuestas-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;}
 .apuesta-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;}
-.apuesta-card-header{display:flex;justify-content:space-between;align-items:center;padding:.25rem .35rem;background:var(--card2);border-bottom:1px solid var(--border);font-size:.68rem;}
+.apuesta-card-header{display:flex;justify-content:space-between;align-items:center;padding:.45rem .6rem;background:var(--card2);border-bottom:1px solid var(--border);font-size:.85rem;}
 .apuesta-total{font-weight:900;color:var(--accent);}
-.apuesta-teams-list{display:flex;flex-direction:column;padding:.2rem .3rem;gap:.08rem;}
+.apuesta-teams-list{display:flex;flex-direction:column;padding:.4rem .5rem;gap:.2rem;}
 .apuestas-rank-col{width:180px;flex-shrink:0;}
 .apuestas-ranking{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
 .rank-title{display:flex;justify-content:space-between;padding:.35rem .6rem;background:var(--card2);border-bottom:1px solid var(--border);font-size:.65rem;font-weight:700;color:var(--text2);}
