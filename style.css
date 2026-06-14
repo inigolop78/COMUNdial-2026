@@ -277,7 +277,9 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .apuestas-row { grid-template-columns: 1fr; gap: .4rem; }
   .apuesta-card { width: 100% !important; }
   .apuestas-rank-col { width: 100% !important; }
-  .apuesta-card { width: 100% !important; box-sizing: border-box; }
+  .apuesta-card { width: 100% !important; box-sizing: border-box; margin: 0; }
+  .apuestas-cards-col { width: 100%; padding: 0; }
+  .apuestas-row { width: 100%; box-sizing: border-box; }
   .apuesta-teams-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: .2rem; }
   .apuesta-chip { padding: .25rem .35rem; }
   .chip-name { font-size: .78rem; }
