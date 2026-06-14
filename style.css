@@ -232,18 +232,18 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .nav-icon { font-size: 1rem; }
 
   /* Fase grupos: horizontal snap scroll, 1 group per screen, full height */
-  #fasegrupos-container { height: calc(100svh - var(--header-h) - var(--nav-h) - 56px); overflow: hidden; display: flex; flex-direction: column; }
+  #fasegrupos-container { height: calc(100svh - var(--header-h) - var(--nav-h) - 56px); overflow: hidden; display: flex; flex-direction: column; background: var(--bg); }
   .group-row-wrap { flex: 1; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .group-row-wrap::-webkit-scrollbar { display: none; }
   .group-row { display: flex; flex-wrap: nowrap; gap: 0; padding: .3rem; height: 100%; width: max-content; box-sizing: border-box; }
-  .group-col { scroll-snap-align: start; width: calc(100vw - .6rem); min-width: calc(100vw - .6rem); flex-shrink: 0; height: 100%; display: flex; flex-direction: column; margin-right: .3rem; box-sizing: border-box; }
-  .group-col .group-matches { flex: 0 0 auto; }
-  .group-col .mini-table { width: 100%; flex: 1; }
+  .group-col { scroll-snap-align: start; width: calc(100vw - .6rem); min-width: calc(100vw - .6rem); flex-shrink: 0; height: 100%; display: flex; flex-direction: column; margin-right: .3rem; box-sizing: border-box; justify-content: space-between; }
+  .group-col .group-matches { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
+  .group-col .mini-table { width: 100%; }
   .group-col tbody { display: block; }
   .group-col tbody tr { display: flex; align-items: center; }
   .group-col tbody tr td { flex: 1; }
   .mini-match { padding: .55rem .4rem; display: flex; align-items: center; width: 100%; box-sizing: border-box; }
-  .mini-match .mini-team { flex: 1; font-size: .88rem; }
+  .mini-match .mini-team { flex: 1; font-size: .82rem; white-space: normal; overflow: visible; text-overflow: unset; }
   .mini-match .mini-team.right { text-align: right; }
   .mini-box { width: 26px; height: 26px; font-size: .9rem; }
   .mini-table { font-size: .85rem; }
@@ -255,7 +255,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .mini-box { width: 22px; height: 22px; font-size: .8rem; }
   .mini-table { font-size: .75rem; }
   .mini-table td, .mini-table th { padding: .35rem .3rem; }
-  .team-name-cell { max-width: none; }
+  .team-name-cell { max-width: none; white-space: normal; font-size: .78rem; }
   .pos-badge { width: 20px; height: 20px; font-size: .7rem; }
 
   /* Bracket scroll on mobile */
