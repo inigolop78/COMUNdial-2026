@@ -231,11 +231,18 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .nav-btn { font-size: .55rem; padding: .35rem .1rem; }
   .nav-icon { font-size: 1rem; }
 
-  /* Fase grupos: horizontal snap scroll, 1 group per screen */
-  .group-row-wrap { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  /* Fase grupos: horizontal snap scroll, 1 group per screen, full height */
+  #sec-fasegrupos { height: calc(100vh - var(--header-h) - var(--nav-h)); overflow: hidden; }
+  .group-row-wrap { height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .group-row-wrap::-webkit-scrollbar { display: none; }
-  .group-row { display: flex; flex-wrap: nowrap; gap: .5rem; padding: .5rem; width: max-content; }
-  .group-col { scroll-snap-align: start; width: calc(100vw - 1.5rem); min-width: calc(100vw - 1.5rem); flex-shrink: 0; }
+  .group-row { display: flex; flex-wrap: nowrap; gap: 0; padding: .4rem; height: 100%; width: max-content; }
+  .group-col { scroll-snap-align: start; width: calc(100vw - .8rem); min-width: calc(100vw - .8rem); flex-shrink: 0; height: 100%; display: flex; flex-direction: column; margin-right: .4rem; }
+  .group-matches { flex: 1; overflow-y: auto; }
+  .mini-match { padding: .5rem .4rem; }
+  .mini-team { font-size: .85rem; }
+  .mini-box { width: 26px; height: 26px; font-size: .9rem; }
+  .mini-table { font-size: .82rem; }
+  .mini-table td, .mini-table th { padding: .4rem .35rem; }
 
   /* Bigger text in group cards on mobile */
   .mini-match { padding: .35rem .3rem; }
