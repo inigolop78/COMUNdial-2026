@@ -232,7 +232,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .nav-icon { font-size: 1rem; }
 
   /* Fase grupos: horizontal snap scroll, 1 group per screen, full height */
-  #fasegrupos-container { height: calc(100vh - var(--header-h) - var(--nav-h)); overflow: hidden; display: flex; flex-direction: column; }
+  #fasegrupos-container { height: calc(100svh - var(--header-h) - var(--nav-h) - 56px); overflow: hidden; display: flex; flex-direction: column; }
   .group-row-wrap { flex: 1; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .group-row-wrap::-webkit-scrollbar { display: none; }
   .group-row { display: flex; flex-wrap: nowrap; gap: 0; padding: .3rem; height: 100%; width: max-content; box-sizing: border-box; }
