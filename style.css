@@ -236,9 +236,10 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .group-row-wrap { flex: 1; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .group-row-wrap::-webkit-scrollbar { display: none; }
   .group-row { display: flex; flex-wrap: nowrap; gap: 0; padding: .3rem; height: 100%; width: max-content; box-sizing: border-box; }
-  .group-col { scroll-snap-align: start; width: calc(100vw - .6rem); min-width: calc(100vw - .6rem); flex-shrink: 0; height: 100%; display: flex; flex-direction: column; margin-right: .3rem; box-sizing: border-box; justify-content: space-between; }
-  .group-col .group-matches { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; }
-  .group-col .mini-table { width: 100%; }
+  .group-col { scroll-snap-align: start; width: calc(100vw - .6rem); min-width: calc(100vw - .6rem); flex-shrink: 0; height: 100%; display: flex; flex-direction: column; margin-right: .3rem; box-sizing: border-box; }
+  .group-col .group-matches { flex: 0 0 auto; }
+  .group-col .mini-table { width: 100%; flex: 1; }
+  .group-col > .mini-table { flex: 1; }
   .group-col tbody { display: block; }
   .group-col tbody tr { display: flex; align-items: center; }
   .group-col tbody tr td { flex: 1; }
@@ -255,7 +256,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .mini-box { width: 22px; height: 22px; font-size: .8rem; }
   .mini-table { font-size: .75rem; }
   .mini-table td, .mini-table th { padding: .35rem .3rem; }
-  .team-name-cell { max-width: none; white-space: normal; font-size: .78rem; }
+  .team-name-cell { max-width: none !important; white-space: normal !important; overflow: visible !important; text-overflow: unset !important; font-size: .78rem; }
   .pos-badge { width: 20px; height: 20px; font-size: .7rem; }
 
   /* Bracket scroll on mobile */
@@ -292,4 +293,12 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .rank-row { padding: .4rem .6rem; }
   .rank-name { font-size: .82rem; }
   .rank-pts { font-size: .88rem; }
+}
+
+@media (max-width: 768px) {
+  .group-col { overflow: hidden; }
+  .group-col .mini-table { flex: 1; display: flex; flex-direction: column; }
+  .group-col .mini-table tbody { flex: 1; display: flex; flex-direction: column; }
+  .group-col .mini-table tbody tr { flex: 1; }
+  .group-col .mini-table thead { flex-shrink: 0; }
 }
