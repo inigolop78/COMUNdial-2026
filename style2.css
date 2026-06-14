@@ -189,8 +189,18 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .mini-table th, .mini-table td { padding: .55rem .45rem; white-space: nowrap; }
   .team-name-cell { max-width: none; white-space: nowrap; font-size: 1.05rem; overflow: hidden; text-overflow: ellipsis; }
   .pos-badge { width: 26px; height: 26px; font-size: .85rem; }
-  .bracket-col { width: 145px; }
-  .b-team { font-size: .85rem; padding: .35rem .5rem; }
+  /* Eliminatorias: horizontal snap scroll, 1 phase per screen */
+  #sec-eliminatorias { overflow: hidden; }
+  .bracket-scroll { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 0; }
+  .bracket-scroll::-webkit-scrollbar { display: none; }
+  .bracket-inner { display: flex; flex-wrap: nowrap; gap: 0; align-items: flex-start; }
+  .bracket-col { scroll-snap-align: start; width: 100vw; min-width: 100vw; flex-shrink: 0; padding: .5rem; box-sizing: border-box; }
+  .bracket-col-label { font-size: .85rem; margin-bottom: .5rem; }
+  .bracket-col-matches { display: flex; flex-direction: column; gap: .5rem; }
+  .b-match { width: 100%; box-sizing: border-box; }
+  .b-team { font-size: 1rem; padding: .5rem .6rem; }
+  .b-score { font-size: .9rem; }
+  .b-id { font-size: .65rem; padding: .2rem .6rem; }
   .pts-layout { flex-direction: column; padding: .4rem; gap: .4rem; }
   .pts-main-wrap { width: 100%; overflow-x: auto; }
   .pts-main-table { width: 100%; font-size: .88rem; }
