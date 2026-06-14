@@ -196,3 +196,8 @@ const PUNTUACION_COMUNIO = {
   segundoPuesto: 60,
   campeon:       75
 };
+
+// Default results (manually entered)
+const RESULTADOS_DEFAULT = {
+  'C-0': { local: 1, visit: 1 },
+};
