@@ -115,45 +115,47 @@ const PARTIDOS_GRUPO = {
 // Bracket: cada partido tiene id, refs a los dos participantes
 // e1/e2 pueden ser: "1A","2B" (clasificados de grupo), o id de partido previo (ganador)
 const BRACKET = [
-  // 1/16
-  { id:'DF1',  r:0, e1:'2A',  e2:'2B',   next:'OF2', slot:0 },
-  { id:'DF2',  r:0, e1:'1C',  e2:'2F',   next:'OF3', slot:0 },
-  { id:'DF3',  r:0, e1:'1E',  e2:'3ABCDF', next:'OF1', slot:0 },
-  { id:'DF4',  r:0, e1:'1F',  e2:'2C',   next:'OF2', slot:1 },
-  { id:'DF5',  r:0, e1:'2E',  e2:'2I',   next:'OF3', slot:1 },
-  { id:'DF6',  r:0, e1:'1I',  e2:'3CDFGH', next:'OF1', slot:1 },
-  { id:'DF7',  r:0, e1:'1A',  e2:'3CEFHI', next:'OF4', slot:0 },
-  { id:'DF8',  r:0, e1:'1L',  e2:'3EHIJK', next:'OF4', slot:1 },
-  { id:'DF9',  r:0, e1:'1G',  e2:'3AEHIJ', next:'OF6', slot:0 },
-  { id:'DF10', r:0, e1:'1D',  e2:'3BEFIJ', next:'OF6', slot:1 },
-  { id:'DF11', r:0, e1:'1H',  e2:'2J',   next:'OF5', slot:1 },
-  { id:'DF12', r:0, e1:'2K',  e2:'2L',   next:'OF5', slot:0 },
-  { id:'DF13', r:0, e1:'1B',  e2:'3EFGIJ', next:'OF8', slot:0 },
-  { id:'DF14', r:0, e1:'2D',  e2:'2G',   next:'OF7', slot:0 },
-  { id:'DF15', r:0, e1:'1J',  e2:'2H',   next:'OF7', slot:1 },
-  { id:'DF16', r:0, e1:'1K',  e2:'3DEIJL', next:'OF8', slot:1 },
-  // 1/8
-  { id:'OF1',  r:1, e1:'DF3', e2:'DF6',  next:'CF1', slot:0 },
-  { id:'OF2',  r:1, e1:'DF1', e2:'DF4',  next:'CF1', slot:1 },
-  { id:'OF3',  r:1, e1:'DF2', e2:'DF5',  next:'CF3', slot:0 },
-  { id:'OF4',  r:1, e1:'DF7', e2:'DF8',  next:'CF3', slot:1 },
-  { id:'OF5',  r:1, e1:'DF12',e2:'DF11', next:'CF2', slot:0 },
-  { id:'OF6',  r:1, e1:'DF9', e2:'DF10', next:'CF2', slot:1 },
-  { id:'OF7',  r:1, e1:'DF14',e2:'DF15', next:'CF4', slot:0 },
-  { id:'OF8',  r:1, e1:'DF13',e2:'DF16', next:'CF4', slot:1 },
-  // 1/4
+  // DIECISEISAVOS - Left side
+  { id:'DF1',  r:0, e1:'1E',  e2:'3ABCDF', next:'OF1', slot:0 },
+  { id:'DF2',  r:0, e1:'1I',  e2:'3CDFGH', next:'OF1', slot:1 },
+  { id:'DF3',  r:0, e1:'2A',  e2:'2B',     next:'OF2', slot:0 },
+  { id:'DF4',  r:0, e1:'1F',  e2:'2C',     next:'OF2', slot:1 },
+  { id:'DF5',  r:0, e1:'2K',  e2:'2L',     next:'OF3', slot:0 },
+  { id:'DF6',  r:0, e1:'1H',  e2:'2J',     next:'OF3', slot:1 },
+  { id:'DF7',  r:0, e1:'1D',  e2:'3BEFIJ', next:'OF4', slot:0 },
+  { id:'DF8',  r:0, e1:'1G',  e2:'3AEHIJ', next:'OF4', slot:1 },
+  // DIECISEISAVOS - Right side
+  { id:'DF9',  r:0, e1:'1C',  e2:'2F',     next:'OF5', slot:0 },
+  { id:'DF10', r:0, e1:'2E',  e2:'2I',     next:'OF5', slot:1 },
+  { id:'DF11', r:0, e1:'1A',  e2:'3GEFHI', next:'OF6', slot:0 },
+  { id:'DF12', r:0, e1:'1L',  e2:'3EHIJK', next:'OF6', slot:1 },
+  { id:'DF13', r:0, e1:'1J',  e2:'2H',     next:'OF7', slot:0 },
+  { id:'DF14', r:0, e1:'2D',  e2:'2G',     next:'OF7', slot:1 },
+  { id:'DF15', r:0, e1:'1B',  e2:'3EFGIJ', next:'OF8', slot:0 },
+  { id:'DF16', r:0, e1:'1K',  e2:'3EHIJK', next:'OF8', slot:1 },
+  // OCTAVOS
+  { id:'OF1',  r:1, e1:'DF1', e2:'DF2',  next:'CF1', slot:0 },
+  { id:'OF2',  r:1, e1:'DF3', e2:'DF4',  next:'CF1', slot:1 },
+  { id:'OF3',  r:1, e1:'DF5', e2:'DF6',  next:'CF2', slot:0 },
+  { id:'OF4',  r:1, e1:'DF7', e2:'DF8',  next:'CF2', slot:1 },
+  { id:'OF5',  r:1, e1:'DF9', e2:'DF10', next:'CF3', slot:0 },
+  { id:'OF6',  r:1, e1:'DF11',e2:'DF12', next:'CF3', slot:1 },
+  { id:'OF7',  r:1, e1:'DF13',e2:'DF14', next:'CF4', slot:0 },
+  { id:'OF8',  r:1, e1:'DF15',e2:'DF16', next:'CF4', slot:1 },
+  // CUARTOS
   { id:'CF1',  r:2, e1:'OF1', e2:'OF2',  next:'SF1', slot:0 },
-  { id:'CF2',  r:2, e1:'OF5', e2:'OF6',  next:'SF1', slot:1 },
-  { id:'CF3',  r:2, e1:'OF3', e2:'OF4',  next:'SF2', slot:0 },
+  { id:'CF2',  r:2, e1:'OF3', e2:'OF4',  next:'SF1', slot:1 },
+  { id:'CF3',  r:2, e1:'OF5', e2:'OF6',  next:'SF2', slot:0 },
   { id:'CF4',  r:2, e1:'OF7', e2:'OF8',  next:'SF2', slot:1 },
-  // 1/2
+  // SEMIFINALES
   { id:'SF1',  r:3, e1:'CF1', e2:'CF2',  next:'FIN', slot:0, loserNext:'TP' },
   { id:'SF2',  r:3, e1:'CF3', e2:'CF4',  next:'FIN', slot:1, loserNext:'TP' },
-  // 3º/4º
+  // 3º/4º PUESTO
   { id:'TP',   r:4, e1:'SF1L',e2:'SF2L', next:null,  slot:0 },
-  // Final
+  // FINAL
   { id:'FIN',  r:4, e1:'SF1', e2:'SF2',  next:null,  slot:0 },
 ];
+
 
 const APUESTAS = [
   { nombre: 'Íñigo Lop', equipos: ['España','Francia','Alemania','Uruguay','Turquía','México','Canadá','Egipto','República Checa','Nueva Zelanda','Bosnia Herzegovina','Ghana'] },
