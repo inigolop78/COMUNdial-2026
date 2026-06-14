@@ -1,4 +1,4 @@
-const CACHE = 'mundial2026-v36';
+const CACHE = 'mundial2026-v37';
 const FILES = [
   './',
   './index.html',
