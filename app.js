@@ -389,7 +389,6 @@ function renderPuntuaciones() {
         <td class="pts-total">${total}</td>
       `;
       tbody.appendChild(tr);
-    });
   });
   tbl.appendChild(tbody);
   tableWrap.appendChild(tbl);
