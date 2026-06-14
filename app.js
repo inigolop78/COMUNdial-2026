@@ -492,8 +492,14 @@ function renderApuestas() {
   });
   rankCol.appendChild(rankDiv);
 
-  apuestasLayout.appendChild(cardsCol);
-  apuestasLayout.appendChild(rankCol);
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile) {
+    apuestasLayout.appendChild(rankCol);
+    apuestasLayout.appendChild(cardsCol);
+  } else {
+    apuestasLayout.appendChild(cardsCol);
+    apuestasLayout.appendChild(rankCol);
+  }
   container.appendChild(apuestasLayout);
 }
 
