@@ -297,6 +297,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 }
 
 
+
 @media (max-width: 768px) {
   .nav-btn { font-size: .65rem; padding: .4rem .1rem; }
   .nav-icon { font-size: 1.1rem; }
@@ -316,64 +317,64 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   }
   .group-row-wrap::-webkit-scrollbar { display: none; }
   .group-row {
-    display: flex;
-    flex-wrap: nowrap;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    grid-template-columns: unset !important;
     height: 100%;
     width: max-content;
-    padding: 0;
-    gap: 0;
+    padding: 0 !important;
+    gap: 0 !important;
   }
   .group-col {
     scroll-snap-align: start;
-    width: 100vw;
-    min-width: 100vw;
+    width: 100vw !important;
+    min-width: 100vw !important;
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: .5rem;
+    padding: .5rem !important;
     box-sizing: border-box;
+    border-radius: 0 !important;
   }
-  .group-matches { flex: 0 0 auto; }
+  .group-col .group-matches { flex: 0 0 auto; }
   .mini-match {
-    display: grid;
-    grid-template-columns: 40% 10% 10% 40%;
-    align-items: center;
-    padding: .55rem 0;
-    width: 100%;
-    box-sizing: border-box;
+    display: grid !important;
+    grid-template-columns: 40% 10% 10% 40% !important;
+    align-items: center !important;
+    padding: .55rem 0 !important;
+    width: 100% !important;
+    gap: 0 !important;
   }
   .mini-team {
-    font-size: .95rem;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: .95rem !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: unset !important;
+    flex: unset !important;
   }
-  .mini-team.right { text-align: right; }
-  .mini-score { display: contents; }
-  .mini-sep { display: none; }
+  .mini-team.right { text-align: right !important; }
+  .mini-score { display: contents !important; }
+  .mini-sep { display: none !important; }
   .mini-box {
-    width: 100%;
-    height: 28px;
-    font-size: .95rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
+    width: 100% !important;
+    height: 28px !important;
+    font-size: .95rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 5px !important;
   }
   .group-spacer { flex: 1; max-height: 1rem; }
   .mini-table {
-    width: auto;
-    font-size: 1.05rem;
-    table-layout: auto;
+    width: auto !important;
+    font-size: 1.05rem !important;
+    table-layout: auto !important;
   }
-  .mini-table th, .mini-table td {
-    padding: .55rem .45rem;
-    white-space: nowrap;
-  }
-  .mini-table th:nth-child(2), .mini-table td:nth-child(2) { padding-right: .8rem; }
-  .team-name-cell { max-width: none !important; white-space: nowrap !important; font-size: 1.05rem; }
-  .pos-badge { width: 26px; height: 26px; font-size: .85rem; }
+  .mini-table th, .mini-table td { padding: .55rem .45rem !important; white-space: nowrap !important; }
+  .team-name-cell { max-width: none !important; white-space: nowrap !important; font-size: 1.05rem !important; }
+  .pos-badge { width: 26px !important; height: 26px !important; font-size: .85rem !important; }
 
   .bracket-col { width: 145px; }
   .b-team { font-size: .85rem; padding: .35rem .5rem; }
@@ -385,9 +386,9 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .pts-main-table td { padding: .3rem .35rem; font-size: .85rem; }
   .pts-summary-wrap { width: 100%; }
 
-  .apuestas-layout { flex-direction: column; padding: .5rem; gap: .4rem; }
+  .apuestas-layout { flex-direction: column !important; padding: .5rem; gap: .4rem; }
   .apuestas-cards-col { width: 100%; }
-  .apuestas-row { grid-template-columns: 1fr; gap: .4rem; }
+  .apuestas-row { grid-template-columns: 1fr !important; gap: .4rem; }
   .apuesta-card { width: 100% !important; box-sizing: border-box; }
   .apuestas-rank-col { width: 100% !important; }
   .apuesta-teams-list { display: grid; grid-template-columns: repeat(2,1fr); gap: .2rem; }
