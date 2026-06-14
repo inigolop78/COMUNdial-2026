@@ -297,5 +297,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 
 
 @media (max-width: 768px) {
-  .group-spacer { flex: 1; }
+  .group-spacer { flex: 0 0 .3rem; min-height: .3rem; }
+  .group-col .group-matches { display: flex; flex-direction: column; justify-content: space-between; }
+  .group-col .mini-match { flex: 1; align-items: center; }
 }
