@@ -299,104 +299,46 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 
 
 @media (max-width: 768px) {
-  .nav-btn { font-size: .65rem; padding: .4rem .1rem; }
-  .nav-icon { font-size: 1.1rem; }
-
-  #fasegrupos-container {
-    height: calc(100svh - var(--header-h) - var(--nav-h) - 56px);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  .group-row-wrap {
-    flex: 1;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .group-row-wrap::-webkit-scrollbar { display: none; }
-  .group-row {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    grid-template-columns: unset !important;
-    height: 100%;
-    width: max-content;
-    padding: 0 !important;
-    gap: 0 !important;
-  }
-  .group-col {
-    scroll-snap-align: start;
-    width: 100vw !important;
-    min-width: 100vw !important;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: .5rem !important;
-    box-sizing: border-box;
-    border-radius: 0 !important;
-  }
-  .group-col .group-matches { flex: 0 0 auto; }
-  .mini-match {
-    display: grid !important;
-    grid-template-columns: 40% 10% 10% 40% !important;
-    align-items: center !important;
-    padding: .55rem 0 !important;
-    width: 100% !important;
-    gap: 0 !important;
-  }
-  .mini-team {
-    font-size: .95rem !important;
-    font-weight: 600 !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    max-width: unset !important;
-    flex: unset !important;
-  }
+  .nav-btn { font-size: .65rem !important; padding: .4rem .1rem !important; }
+  .nav-icon { font-size: 1.1rem !important; }
+  #fasegrupos-container { height: calc(100svh - var(--header-h) - var(--nav-h) - 56px) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; }
+  .group-row-wrap { flex: 1 !important; overflow-x: auto !important; scroll-snap-type: x mandatory !important; -webkit-overflow-scrolling: touch !important; scrollbar-width: none !important; }
+  .group-row-wrap::-webkit-scrollbar { display: none !important; }
+  .group-row { display: flex !important; flex-wrap: nowrap !important; height: 100% !important; width: max-content !important; padding: 0 !important; gap: 0 !important; }
+  .group-col { scroll-snap-align: start !important; width: 100vw !important; min-width: 100vw !important; height: 100% !important; display: flex !important; flex-direction: column !important; padding: .5rem !important; box-sizing: border-box !important; border-radius: 0 !important; }
+  .group-col .group-matches { flex: 0 0 auto !important; }
+  .mini-match { display: grid !important; grid-template-columns: 40% 10% 10% 40% !important; align-items: center !important; padding: .55rem 0 !important; width: 100% !important; gap: 0 !important; border-left: none !important; }
+  .mini-match.played { border-left: 2px solid var(--green) !important; }
+  .mini-team { font-size: .95rem !important; font-weight: 600 !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; max-width: unset !important; flex: unset !important; }
   .mini-team.right { text-align: right !important; }
   .mini-score { display: contents !important; }
   .mini-sep { display: none !important; }
-  .mini-box {
-    width: 100% !important;
-    height: 28px !important;
-    font-size: .95rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border-radius: 5px !important;
-  }
-  .group-spacer { flex: 1; max-height: 1rem; }
-  .mini-table {
-    width: auto !important;
-    font-size: 1.05rem !important;
-    table-layout: auto !important;
-  }
+  .mini-box { width: 100% !important; height: 28px !important; font-size: .95rem !important; display: flex !important; align-items: center !important; justify-content: center !important; border-radius: 5px !important; background: var(--bg2) !important; }
+  .mini-box.empty { color: var(--text3) !important; }
+  .group-spacer { flex: 1 !important; max-height: 1rem !important; }
+  .mini-table { width: auto !important; font-size: 1.05rem !important; table-layout: auto !important; }
   .mini-table th, .mini-table td { padding: .55rem .45rem !important; white-space: nowrap !important; }
   .team-name-cell { max-width: none !important; white-space: nowrap !important; font-size: 1.05rem !important; }
   .pos-badge { width: 26px !important; height: 26px !important; font-size: .85rem !important; }
-
-  .bracket-col { width: 145px; }
-  .b-team { font-size: .85rem; padding: .35rem .5rem; }
-
-  .pts-layout { flex-direction: column; padding: .4rem; gap: .4rem; }
-  .pts-main-wrap { width: 100%; overflow-x: auto; }
-  .pts-main-table { width: 100%; font-size: .88rem; }
-  .pts-main-table th { padding: .3rem .35rem; font-size: .8rem; }
-  .pts-main-table td { padding: .3rem .35rem; font-size: .85rem; }
-  .pts-summary-wrap { width: 100%; }
-
-  .apuestas-layout { flex-direction: column !important; padding: .5rem; gap: .4rem; }
-  .apuestas-cards-col { width: 100%; }
-  .apuestas-row { grid-template-columns: 1fr !important; gap: .4rem; }
-  .apuesta-card { width: 100% !important; box-sizing: border-box; }
+  .bracket-col { width: 145px !important; }
+  .b-team { font-size: .85rem !important; padding: .35rem .5rem !important; }
+  .pts-layout { flex-direction: column !important; padding: .4rem !important; gap: .4rem !important; }
+  .pts-main-wrap { width: 100% !important; overflow-x: auto !important; }
+  .pts-main-table { width: 100% !important; font-size: .88rem !important; }
+  .pts-main-table th { padding: .3rem .35rem !important; font-size: .8rem !important; }
+  .pts-main-table td { padding: .3rem .35rem !important; font-size: .85rem !important; }
+  .pts-summary-wrap { width: 100% !important; }
+  .apuestas-layout { flex-direction: column !important; padding: .5rem !important; gap: .4rem !important; }
+  .apuestas-cards-col { width: 100% !important; }
+  .apuestas-row { grid-template-columns: 1fr !important; gap: .4rem !important; }
+  .apuesta-card { width: 100% !important; box-sizing: border-box !important; }
   .apuestas-rank-col { width: 100% !important; }
-  .apuesta-teams-list { display: grid; grid-template-columns: repeat(2,1fr); gap: .2rem; }
-  .apuesta-chip { padding: .3rem .4rem; }
-  .chip-name { font-size: .92rem; }
-  .chip-pts { font-size: .92rem; }
-  .apuesta-card-header { font-size: 1rem; }
-  .rank-row { padding: .4rem .6rem; }
-  .rank-name { font-size: 1rem; white-space: nowrap; }
-  .rank-pts { font-size: 1rem; }
+  .apuesta-teams-list { display: grid !important; grid-template-columns: repeat(2,1fr) !important; gap: .2rem !important; }
+  .apuesta-chip { padding: .3rem .4rem !important; }
+  .chip-name { font-size: .92rem !important; }
+  .chip-pts { font-size: .92rem !important; }
+  .apuesta-card-header { font-size: 1rem !important; }
+  .rank-row { padding: .4rem .6rem !important; }
+  .rank-name { font-size: 1rem !important; white-space: nowrap !important; }
+  .rank-pts { font-size: 1rem !important; }
 }
