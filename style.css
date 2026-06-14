@@ -223,3 +223,54 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 .apuestas-rank-col{width:180px;flex-shrink:0;background:var(--bg);padding-left:.4rem;}
 .apuestas-ranking{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
 .rank-title{display:flex;justify-content:space-between;padding:.35rem .7rem;background:var(--card2);border-bottom:1px solid var(--border);font-size:.78rem;font-weight:700;color:var(--text2);}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+
+  /* Nav labels smaller */
+  .nav-btn { font-size: .55rem; padding: .35rem .1rem; }
+  .nav-icon { font-size: 1rem; }
+
+  /* Fase grupos: horizontal snap scroll, 1 group per screen */
+  .group-row-wrap { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .group-row-wrap::-webkit-scrollbar { display: none; }
+  .group-row { display: flex; flex-wrap: nowrap; gap: .5rem; padding: .5rem; width: max-content; }
+  .group-col { scroll-snap-align: start; width: calc(100vw - 1.5rem); min-width: calc(100vw - 1.5rem); flex-shrink: 0; }
+
+  /* Bigger text in group cards on mobile */
+  .mini-match { padding: .35rem .3rem; }
+  .mini-team { font-size: .75rem; }
+  .mini-box { width: 22px; height: 22px; font-size: .8rem; }
+  .mini-table { font-size: .75rem; }
+  .mini-table td, .mini-table th { padding: .35rem .3rem; }
+  .team-name-cell { max-width: none; }
+  .pos-badge { width: 20px; height: 20px; font-size: .7rem; }
+
+  /* Bracket scroll on mobile */
+  .bracket-scroll { padding: .3rem; }
+  .bracket-col { width: 130px; }
+  .b-team { font-size: .7rem; padding: .3rem .4rem; }
+
+  /* Puntuaciones: scrollable table */
+  .pts-layout { flex-direction: column; padding: .4rem; gap: .4rem; }
+  .pts-summary-wrap { width: 100%; }
+  .pts-main-table { font-size: .7rem; }
+  .pts-main-table th { padding: .2rem .25rem; font-size: .62rem; }
+  .pts-main-table td { padding: .2rem .25rem; font-size: .68rem; }
+
+  /* Apuestas: 1 card per row, stacked */
+  .apuestas-layout { flex-direction: column; padding: .4rem; gap: .4rem; }
+  .apuestas-row { grid-template-columns: 1fr; gap: .4rem; }
+  .apuesta-card { width: 100% !important; }
+  .apuestas-rank-col { width: 100% !important; }
+  .apuesta-teams-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: .2rem; }
+  .apuesta-chip { padding: .25rem .35rem; }
+  .chip-name { font-size: .78rem; }
+  .chip-pts { font-size: .78rem; }
+  .apuesta-card-header { font-size: .85rem; }
+
+  /* Ranking rows */
+  .rank-row { padding: .4rem .6rem; }
+  .rank-name { font-size: .82rem; }
+  .rank-pts { font-size: .88rem; }
+}
