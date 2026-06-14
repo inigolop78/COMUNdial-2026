@@ -235,8 +235,8 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   #fasegrupos-container { height: calc(100svh - var(--header-h) - var(--nav-h) - 56px); overflow: hidden; display: flex; flex-direction: column; background: var(--bg); }
   .group-row-wrap { flex: 1; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .group-row-wrap::-webkit-scrollbar { display: none; }
-  .group-row { display: flex; flex-wrap: nowrap; gap: 0; padding: .3rem; height: 100%; width: max-content; box-sizing: border-box; }
-  .group-col { scroll-snap-align: start; width: calc(100vw - .6rem); min-width: calc(100vw - .6rem); flex-shrink: 0; height: 100%; display: flex; flex-direction: column; margin-right: .3rem; box-sizing: border-box; }
+  .group-row { display: flex; flex-wrap: nowrap; gap: 0; padding: 0; height: 100%; width: max-content; box-sizing: border-box; }
+  .group-col { scroll-snap-align: start; width: 100vw; min-width: 100vw; flex-shrink: 0; height: 100%; display: flex; flex-direction: column; margin-right: 0; box-sizing: border-box; padding: .4rem; }
   .group-col .group-matches { flex: 0 0 auto; }
   .group-col .mini-table { width: 100%; flex: 1; }
   .group-col > .mini-table { flex: 1; }
@@ -244,11 +244,11 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .group-col tbody tr { display: flex; align-items: center; }
   .group-col tbody tr td { flex: 1; }
   .mini-match { padding: .55rem .4rem; display: flex; align-items: center; width: 100%; box-sizing: border-box; }
-  .mini-match .mini-team { flex: 1; font-size: .82rem; white-space: normal; overflow: visible; text-overflow: unset; }
+  .mini-match .mini-team { flex: 1; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .mini-match .mini-team.right { text-align: right; }
-  .mini-box { width: 26px; height: 26px; font-size: .9rem; }
+  .mini-box { width: 30px; height: 30px; font-size: 1rem; }
   .mini-table { font-size: .85rem; }
-  .mini-table td, .mini-table th { padding: .45rem .35rem; }
+  .mini-table td, .mini-table th { padding: .5rem .4rem; }
 
   /* Bigger text in group cards on mobile */
   .mini-match { padding: .35rem .3rem; }
@@ -256,7 +256,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .mini-box { width: 22px; height: 22px; font-size: .8rem; }
   .mini-table { font-size: .75rem; }
   .mini-table td, .mini-table th { padding: .35rem .3rem; }
-  .team-name-cell { max-width: none !important; white-space: normal !important; overflow: visible !important; text-overflow: unset !important; font-size: .78rem; }
+  .team-name-cell { max-width: none !important; white-space: normal !important; overflow: visible !important; text-overflow: unset !important; font-size: .9rem; }
   .pos-badge { width: 20px; height: 20px; font-size: .7rem; }
 
   /* Bracket scroll on mobile */
@@ -295,10 +295,3 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .rank-pts { font-size: .88rem; }
 }
 
-@media (max-width: 768px) {
-  .group-col { overflow: hidden; }
-  .group-col .mini-table { flex: 1; display: flex; flex-direction: column; }
-  .group-col .mini-table tbody { flex: 1; display: flex; flex-direction: column; }
-  .group-col .mini-table tbody tr { flex: 1; }
-  .group-col .mini-table thead { flex-shrink: 0; }
-}
