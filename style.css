@@ -251,12 +251,13 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .bracket-col { width: 130px; }
   .b-team { font-size: .7rem; padding: .3rem .4rem; }
 
-  /* Puntuaciones: scrollable table */
+  /* Puntuaciones: full width scrollable table */
   .pts-layout { flex-direction: column; padding: .4rem; gap: .4rem; }
+  .pts-main-wrap { width: 100%; overflow-x: auto; }
+  .pts-main-table { width: 100%; font-size: .75rem; }
+  .pts-main-table th { padding: .25rem .3rem; font-size: .68rem; }
+  .pts-main-table td { padding: .25rem .3rem; font-size: .72rem; }
   .pts-summary-wrap { width: 100%; }
-  .pts-main-table { font-size: .7rem; }
-  .pts-main-table th { padding: .2rem .25rem; font-size: .62rem; }
-  .pts-main-table td { padding: .2rem .25rem; font-size: .68rem; }
 
   /* Apuestas: 1 card per row, stacked */
   .apuestas-layout { flex-direction: column; padding: .4rem; gap: .4rem; }
