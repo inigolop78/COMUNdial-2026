@@ -228,7 +228,7 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
 @media (max-width: 768px) {
 
   /* Nav labels smaller */
-  .nav-btn { font-size: .55rem; padding: .35rem .1rem; }
+  .nav-btn { font-size: .65rem; padding: .4rem .1rem; }
   .nav-icon { font-size: 1rem; }
 
   /* Fase grupos: horizontal snap scroll, 1 group per screen, full height */
@@ -244,11 +244,11 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .group-col tbody tr { display: flex; align-items: center; }
   .group-col tbody tr td { flex: 1; }
   .mini-match { padding: .55rem .4rem; display: flex; align-items: center; width: 100%; box-sizing: border-box; }
-  .mini-match .mini-team { flex: 1; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mini-match .mini-team { flex: 1; font-size: 1.05rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .mini-match .mini-team.right { text-align: right; }
-  .mini-box { width: 30px; height: 30px; font-size: 1rem; }
+  .mini-box { width: 32px; height: 32px; font-size: 1.05rem; }
   .mini-table { font-size: .85rem; }
-  .mini-table td, .mini-table th { padding: .5rem .4rem; }
+  .mini-table td, .mini-table th { padding: .55rem .4rem; }
 
   /* Bigger text in group cards on mobile */
   .mini-match { padding: .35rem .3rem; }
@@ -256,20 +256,20 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .mini-box { width: 22px; height: 22px; font-size: .8rem; }
   .mini-table { font-size: .75rem; }
   .mini-table td, .mini-table th { padding: .35rem .3rem; }
-  .team-name-cell { max-width: none !important; white-space: normal !important; overflow: visible !important; text-overflow: unset !important; font-size: .9rem; }
+  .team-name-cell { max-width: none !important; white-space: normal !important; overflow: visible !important; text-overflow: unset !important; font-size: 1rem; }
   .pos-badge { width: 20px; height: 20px; font-size: .7rem; }
 
   /* Bracket scroll on mobile */
   .bracket-scroll { padding: .3rem; }
-  .bracket-col { width: 130px; }
-  .b-team { font-size: .7rem; padding: .3rem .4rem; }
+  .bracket-col { width: 145px; }
+  .b-team { font-size: .85rem; padding: .35rem .5rem; }
 
   /* Puntuaciones: full width scrollable table */
   .pts-layout { flex-direction: column; padding: .4rem; gap: .4rem; }
   .pts-main-wrap { width: 100%; overflow-x: auto; }
-  .pts-main-table { width: 100%; font-size: .75rem; }
-  .pts-main-table th { padding: .25rem .3rem; font-size: .68rem; }
-  .pts-main-table td { padding: .25rem .3rem; font-size: .72rem; }
+  .pts-main-table { width: 100%; font-size: .88rem; }
+  .pts-main-table th { padding: .3rem .35rem; font-size: .8rem; }
+  .pts-main-table td { padding: .3rem .35rem; font-size: .85rem; }
   .pts-summary-wrap { width: 100%; }
 
   /* Apuestas: ranking first, then cards full width */
@@ -284,15 +284,15 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .apuestas-rank-col .apuestas-ranking { margin: 0; }
   .apuesta-teams-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: .2rem; }
   .apuesta-chip { padding: .25rem .35rem; }
-  .chip-name { font-size: .78rem; }
-  .chip-pts { font-size: .78rem; }
-  .apuesta-card-header { font-size: .85rem; }
+  .chip-name { font-size: .92rem; }
+  .chip-pts { font-size: .92rem; }
+  .apuesta-card-header { font-size: 1rem; }
 
   #sec-apuestas .section-header { padding: .5rem .5rem .3rem; }
   /* Ranking rows */
   .rank-row { padding: .4rem .6rem; }
-  .rank-name { font-size: .82rem; }
-  .rank-pts { font-size: .88rem; }
+  .rank-name { font-size: 1rem; }
+  .rank-pts { font-size: 1rem; }
 }
 
 
