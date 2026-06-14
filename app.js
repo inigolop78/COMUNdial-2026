@@ -367,8 +367,10 @@ function renderPuntuaciones() {
     <th>Cto</th><th>Semi</th><th>4º</th><th>3º</th><th>2º</th><th>🏆</th><th>Tot</th>
   </tr></thead>`;
   const tbody = document.createElement('tbody');
-  Object.keys(GRUPOS).forEach(g => {
-    GRUPOS[g].forEach(eq => {
+  const allTeams2 = [];
+  Object.keys(GRUPOS).forEach(g => { GRUPOS[g].forEach(eq => { allTeams2.push({eq,g,total:teamPts[eq]||0}); }); });
+  allTeams2.sort((a,b) => b.total - a.total || a.g.localeCompare(b.g));
+  allTeams2.forEach(({eq,g}) => {
       const bd = calcTeamBreakdown(eq, standings);
       const total = teamPts[eq] || 0;
       const tr = document.createElement('tr');
