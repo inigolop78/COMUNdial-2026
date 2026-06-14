@@ -369,25 +369,24 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   /* Spacer */
   .group-spacer { flex: 1; max-height: 1.5rem; }
 
-  /* Standings table */
+  /* Standings table - bigger font, auto width, centered */
   .mini-table {
-    width: 100%;
-    font-size: .95rem;
-    table-layout: fixed;
+    width: auto;
+    font-size: 1.1rem;
+    table-layout: auto;
+    margin: 0;
   }
   .mini-table th, .mini-table td {
-    padding: .5rem .3rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding: .6rem .5rem;
     white-space: nowrap;
   }
-  .mini-table th:nth-child(1), .mini-table td:nth-child(1) { width: 36px; }
-  .mini-table th:nth-child(2), .mini-table td:nth-child(2) { width: auto; text-align: left; }
-  .mini-table th:nth-child(3), .mini-table td:nth-child(3) { width: 32px; text-align: center; }
-  .mini-table th:nth-child(4), .mini-table td:nth-child(4) { width: 40px; text-align: center; }
-  .mini-table th:nth-child(5), .mini-table td:nth-child(5) { width: 44px; text-align: center; }
-  .team-name-cell { max-width: none !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; font-size: .95rem; }
-  .pos-badge { width: 24px; height: 24px; font-size: .8rem; }
+  .mini-table th:nth-child(1), .mini-table td:nth-child(1) { text-align: center; }
+  .mini-table th:nth-child(2), .mini-table td:nth-child(2) { text-align: left; padding-right: 1rem; }
+  .mini-table th:nth-child(3), .mini-table td:nth-child(3) { text-align: center; }
+  .mini-table th:nth-child(4), .mini-table td:nth-child(4) { text-align: center; }
+  .mini-table th:nth-child(5), .mini-table td:nth-child(5) { text-align: center; }
+  .team-name-cell { max-width: none !important; white-space: nowrap !important; font-size: 1.1rem; }
+  .pos-badge { width: 28px; height: 28px; font-size: .9rem; }
 
   /* ===== ELIMINATORIAS ===== */
   .bracket-col { width: 145px; }
