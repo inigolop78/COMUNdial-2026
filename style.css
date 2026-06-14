@@ -260,11 +260,11 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .pts-summary-wrap { width: 100%; }
 
   /* Apuestas: ranking first, then cards full width */
-  .apuestas-layout { flex-direction: column-reverse; padding: .4rem; gap: .4rem; }
+  .apuestas-layout { flex-direction: column; padding: .4rem; gap: .4rem; }
   .apuestas-cards-col { width: 100%; }
   .apuestas-row { grid-template-columns: 1fr; gap: .4rem; }
   .apuesta-card { width: 100% !important; }
-  .apuestas-rank-col { width: 100% !important; order: -1; }
+  .apuestas-rank-col { width: 100% !important; }
   .apuesta-teams-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: .2rem; }
   .apuesta-chip { padding: .25rem .35rem; }
   .chip-name { font-size: .78rem; }
