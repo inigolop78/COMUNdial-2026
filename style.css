@@ -296,13 +296,11 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .group-col .mini-match { flex: 1; align-items: center; }
 }
 
-@media (max-width: 768px) {
 
-  /* ===== NAV ===== */
+@media (max-width: 768px) {
   .nav-btn { font-size: .65rem; padding: .4rem .1rem; }
   .nav-icon { font-size: 1.1rem; }
 
-  /* ===== FASE GRUPOS ===== */
   #fasegrupos-container {
     height: calc(100svh - var(--header-h) - var(--nav-h) - 56px);
     overflow: hidden;
@@ -320,10 +318,10 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .group-row {
     display: flex;
     flex-wrap: nowrap;
-    gap: 0;
-    padding: 0;
     height: 100%;
     width: max-content;
+    padding: 0;
+    gap: 0;
   }
   .group-col {
     scroll-snap-align: start;
@@ -335,14 +333,12 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
     padding: .5rem;
     box-sizing: border-box;
   }
-
-  /* Matches section - 40% + 10% + 10% + 40% */
   .group-matches { flex: 0 0 auto; }
   .mini-match {
     display: grid;
     grid-template-columns: 40% 10% 10% 40%;
     align-items: center;
-    padding: .55rem .3rem;
+    padding: .55rem 0;
     width: 100%;
     box-sizing: border-box;
   }
@@ -355,44 +351,33 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   }
   .mini-team.right { text-align: right; }
   .mini-score { display: contents; }
+  .mini-sep { display: none; }
   .mini-box {
     width: 100%;
-    height: 30px;
-    font-size: 1rem;
+    height: 28px;
+    font-size: .95rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
   }
-  .mini-sep { display: none; }
-
-  /* Spacer */
-  .group-spacer { flex: 1; max-height: 1.5rem; }
-
-  /* Standings table - bigger font, auto width, centered */
+  .group-spacer { flex: 1; max-height: 1rem; }
   .mini-table {
     width: auto;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     table-layout: auto;
-    margin: 0;
   }
   .mini-table th, .mini-table td {
-    padding: .6rem .5rem;
+    padding: .55rem .45rem;
     white-space: nowrap;
   }
-  .mini-table th:nth-child(1), .mini-table td:nth-child(1) { text-align: center; }
-  .mini-table th:nth-child(2), .mini-table td:nth-child(2) { text-align: left; padding-right: 1rem; }
-  .mini-table th:nth-child(3), .mini-table td:nth-child(3) { text-align: center; }
-  .mini-table th:nth-child(4), .mini-table td:nth-child(4) { text-align: center; }
-  .mini-table th:nth-child(5), .mini-table td:nth-child(5) { text-align: center; }
-  .team-name-cell { max-width: none !important; white-space: nowrap !important; font-size: 1.1rem; }
-  .pos-badge { width: 28px; height: 28px; font-size: .9rem; }
+  .mini-table th:nth-child(2), .mini-table td:nth-child(2) { padding-right: .8rem; }
+  .team-name-cell { max-width: none !important; white-space: nowrap !important; font-size: 1.05rem; }
+  .pos-badge { width: 26px; height: 26px; font-size: .85rem; }
 
-  /* ===== ELIMINATORIAS ===== */
   .bracket-col { width: 145px; }
   .b-team { font-size: .85rem; padding: .35rem .5rem; }
 
-  /* ===== PUNTUACIONES ===== */
   .pts-layout { flex-direction: column; padding: .4rem; gap: .4rem; }
   .pts-main-wrap { width: 100%; overflow-x: auto; }
   .pts-main-table { width: 100%; font-size: .88rem; }
@@ -400,13 +385,12 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .pts-main-table td { padding: .3rem .35rem; font-size: .85rem; }
   .pts-summary-wrap { width: 100%; }
 
-  /* ===== APUESTAS ===== */
   .apuestas-layout { flex-direction: column; padding: .5rem; gap: .4rem; }
   .apuestas-cards-col { width: 100%; }
   .apuestas-row { grid-template-columns: 1fr; gap: .4rem; }
   .apuesta-card { width: 100% !important; box-sizing: border-box; }
   .apuestas-rank-col { width: 100% !important; }
-  .apuesta-teams-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: .2rem; }
+  .apuesta-teams-list { display: grid; grid-template-columns: repeat(2,1fr); gap: .2rem; }
   .apuesta-chip { padding: .3rem .4rem; }
   .chip-name { font-size: .92rem; }
   .chip-pts { font-size: .92rem; }
@@ -414,5 +398,4 @@ main{flex:1;overflow-y:auto;overflow-x:hidden;padding-bottom:1.5rem;-webkit-over
   .rank-row { padding: .4rem .6rem; }
   .rank-name { font-size: 1rem; white-space: nowrap; }
   .rank-pts { font-size: 1rem; }
-  #sec-apuestas .section-header { padding: .5rem .5rem .3rem; }
 }
