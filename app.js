@@ -157,6 +157,67 @@ function renderFaseGrupos() {
   container.innerHTML = '';
   const standings = getAllStandings();
   const grupKeys = Object.keys(GRUPOS);
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    // Single scrollable row with all groups
+    const wrap = document.createElement('div');
+    wrap.className = 'group-row-wrap';
+    const row = document.createElement('div');
+    row.className = 'group-row';
+    grupKeys.forEach(g => {
+      const s = standings[g];
+      const block = document.createElement('div');
+      block.className = 'group-col';
+      const hdr = document.createElement('div');
+      hdr.className = 'group-col-header';
+      hdr.innerHTML = `<div class="group-badge">${g}</div><span>Grupo ${g}</span>`;
+      block.appendChild(hdr);
+      const matchesDiv = document.createElement('div');
+      matchesDiv.className = 'group-matches';
+      PARTIDOS_GRUPO[g].forEach((p, idx) => {
+        const key = `${g}-${idx}`;
+        const res = resultados[key];
+        const played = res && res.local!=='' && res.visit!=='';
+        const mc = document.createElement('div');
+        mc.className = `mini-match${played?' played':''}`;
+        mc.innerHTML = `
+          <span class="mini-team">${p[0]}</span>
+          <div class="mini-score">
+            <span class="mini-box${!played?' empty':''}">${played?res.local:'–'}</span>
+            <span class="mini-sep">:</span>
+            <span class="mini-box${!played?' empty':''}">${played?res.visit:'–'}</span>
+          </div>
+          <span class="mini-team right">${p[1]}</span>
+        `;
+        mc.onclick = () => openModal('grupo', g, idx, p[0], p[1], res);
+        matchesDiv.appendChild(mc);
+      });
+      block.appendChild(matchesDiv);
+      const tbl = document.createElement('table');
+      tbl.className = 'mini-table';
+      tbl.innerHTML = `<thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>PTS</th><th>DIF</th></tr></thead>`;
+      const tbody = document.createElement('tbody');
+      s.forEach((t,i) => {
+        const dif = t.dif;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="pos-badge pos-${i+1}">${i+1}</span></td>
+          <td class="team-name-cell">${t.equipo}</td>
+          <td>${t.pj}</td>
+          <td class="pts-cell">${t.pts}</td>
+          <td class="${dif>0?'dif-pos':dif<0?'dif-neg':''}">${dif>0?'+':''}${dif}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+      tbl.appendChild(tbody);
+      block.appendChild(tbl);
+      row.appendChild(block);
+    });
+    wrap.appendChild(row);
+    container.appendChild(wrap);
+    return;
+  }
 
   for (let i=0; i<grupKeys.length; i+=6) {
     const wrap = document.createElement('div');
