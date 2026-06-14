@@ -577,7 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('splash').classList.add('hide');
     document.getElementById('app').classList.remove('hidden');
     setTimeout(()=>{ document.getElementById('splash').style.display='none'; }, 600);
-  }, 1400);
+  }, 500);
   initNav();
   renderAll();
   initSync();
