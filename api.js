@@ -9,13 +9,13 @@ const TEAM_NAME_MAP = {
   'Saudi Arabia':           'Arabia Saudí',
   'Bosnia and Herzegovina': 'Bosnia Herzegovina',
   'Bosnia-Herzegovina':     'Bosnia Herzegovina',
-  'Czechia':                'República Checa',
   'New Zealand':            'Nueva Zelanda',
   'USA':                    'Estados Unidos',
   'United States':          'Estados Unidos',
   'South Korea':            'Corea del Sur',
   'Korea Republic':         'Corea del Sur',
   'Curacao':                'Curaçao',
+  'Czechia':                'República Checa',
   'Iran':                   'Irán',
   'Morocco':                'Marruecos',
   'Algeria':                'Argelia',
@@ -39,25 +39,23 @@ const TEAM_NAME_MAP = {
   'Uzbekistan':             'Uzbekistán',
   'Cape Verde':             'Cabo Verde',
   'South Africa':           'Sudáfrica',
-  'Portugal':               'Portugal',
-  'Argentina':              'Argentina',
-  'Brazil':                 'Brasil',
-  'Colombia':               'Colombia',
-  'Ecuador':                'Ecuador',
-  'Uruguay':                'Uruguay',
-  'Paraguay':               'Paraguay',
-  'Australia':              'Australia',
-  'Ghana':                  'Ghana',
-  'England':                'Inglaterra',
-  'Qatar':                  'Qatar',
-  'Iraq':                   'Iraq',
-  'Senegal':                'Senegal',
-  'Austria':                'Austria',
   'Turkey':                 'Turquía',
   'Türkiye':                'Turquía',
 };
 
 function fromApiName(n) { return TEAM_NAME_MAP[n] || n; }
+
+// Map API stage names to our bracket IDs
+const STAGE_TO_ROUNDS = {
+  'LAST_32':         'DF',
+  'ROUND_OF_32':     'DF',
+  'LAST_16':         'OF',
+  'ROUND_OF_16':     'OF',
+  'QUARTER_FINALS':  'CF',
+  'SEMI_FINALS':     'SF',
+  'THIRD_PLACE':     'TP',
+  'FINAL':           'FIN',
+};
 
 function setSyncStatus(state) {
   const el = document.getElementById('sync-status');
@@ -66,7 +64,7 @@ function setSyncStatus(state) {
   el.title = { loading:'Actualizando...', ok:'Actualizado', error:'Sin conexión', idle:'' }[state]||'';
 }
 
-function matchFixture(home, away, gl, gv) {
+function matchGroupFixture(home, away, gl, gv) {
   for (const [grupo, partidos] of Object.entries(PARTIDOS_GRUPO)) {
     for (const [idx, p] of partidos.entries()) {
       if (p[0]===home && p[1]===away) return { key:`${grupo}-${idx}`, local:gl, visit:gv };
@@ -74,6 +72,41 @@ function matchFixture(home, away, gl, gv) {
     }
   }
   return null;
+}
+
+function matchKnockoutFixture(home, away, gl, gv, stage) {
+  // Find the bracket match that has these two teams
+  const prefix = STAGE_TO_ROUNDS[stage];
+  if (!prefix) return null;
+
+  for (const m of BRACKET) {
+    if (!m.id.startsWith(prefix) && m.id !== 'TP' && m.id !== 'FIN') continue;
+    if (stage === 'THIRD_PLACE' && m.id !== 'TP') continue;
+    if (stage === 'FINAL' && m.id !== 'FIN') continue;
+
+    const res = elimResults[m.id];
+    const t1name = res?.teamLocal || getTeamFromRef(m.e1);
+    const t2name = res?.teamVisit || getTeamFromRef(m.e2);
+
+    if ((t1name===home && t2name===away) || (t1name===away && t2name===home)) {
+      const reversed = t1name===away;
+      return {
+        matchId: m.id,
+        local: reversed ? gv : gl,
+        visit: reversed ? gl : gv,
+        winner: gl > gv ? (reversed ? away : home) : gv > gl ? (reversed ? home : away) : null,
+        loser:  gl > gv ? (reversed ? home : away) : gv > gl ? (reversed ? away : home) : null,
+        teamLocal: reversed ? away : home,
+        teamVisit: reversed ? home : away,
+      };
+    }
+  }
+  return null;
+}
+
+function getTeamFromRef(ref) {
+  // Try to resolve a ref like "1A", "2B", "DF1" etc from current standings
+  return null; // will be resolved by the app when teams are known
 }
 
 async function syncFromAPI() {
@@ -85,25 +118,51 @@ async function syncFromAPI() {
     if (!data.matches?.length) throw new Error('No matches');
 
     const FINISHED = ['FINISHED','IN_PLAY','PAUSED'];
-    let updated = 0;
+    let updatedGroups = 0;
+    let updatedKnockout = 0;
+
     data.matches.forEach(m => {
       if (!FINISHED.includes(m.status)) return;
       const gl = m.score?.fullTime?.home;
       const gv = m.score?.fullTime?.away;
       if (gl == null || gv == null) return;
+
       const home = fromApiName(m.homeTeam.name);
       const away = fromApiName(m.awayTeam.name);
-      const match = matchFixture(home, away, gl, gv);
-      if (!match) return;
-      const existing = resultados[match.key];
-      if (existing && !existing.fromAPI) return;
-      resultados[match.key] = { local: match.local, visit: match.visit, fromAPI: true };
-      updated++;
+      const stage = m.stage;
+
+      // Group stage
+      if (stage && (stage.includes('GROUP') || stage === 'GROUP_STAGE')) {
+        const match = matchGroupFixture(home, away, gl, gv);
+        if (!match) return;
+        const existing = resultados[match.key];
+        if (existing && !existing.fromAPI) return;
+        resultados[match.key] = { local: match.local, visit: match.visit, fromAPI: true };
+        updatedGroups++;
+        return;
+      }
+
+      // Knockout stages
+      const knockoutMatch = matchKnockoutFixture(home, away, gl, gv, stage);
+      if (knockoutMatch) {
+        const existing = elimResults[knockoutMatch.matchId];
+        if (existing && !existing.fromAPI) return;
+        elimResults[knockoutMatch.matchId] = {
+          local: knockoutMatch.local,
+          visit: knockoutMatch.visit,
+          winner: knockoutMatch.winner,
+          loser: knockoutMatch.loser,
+          teamLocal: knockoutMatch.teamLocal,
+          teamVisit: knockoutMatch.teamVisit,
+          fromAPI: true
+        };
+        updatedKnockout++;
+      }
     });
 
-    if (updated > 0) { save(); renderAll(); }
+    if (updatedGroups > 0 || updatedKnockout > 0) { save(); renderAll(); }
     setSyncStatus('ok');
-    console.log(`Sync OK — ${updated} results updated`);
+    console.log(`Sync OK — grupos: ${updatedGroups}, eliminatorias: ${updatedKnockout}`);
   } catch(err) {
     console.warn('API sync failed:', err.message);
     setSyncStatus('error');
@@ -121,18 +180,11 @@ window.debugAPI = async () => {
   try {
     const res = await fetch(WORKER_URL);
     const data = await res.json();
-    console.log('Total matches:', data.matches?.length);
     const finished = data.matches?.filter(m => ['FINISHED','IN_PLAY','PAUSED'].includes(m.status));
-    console.log('Finished:', finished?.length);
-    console.log('First:', finished?.[0]?.homeTeam?.name, 'vs', finished?.[0]?.awayTeam?.name, finished?.[0]?.score?.fullTime);
-    // Check unmatched
-    let unmatched = [];
-    finished?.forEach(m => {
-      const home = fromApiName(m.homeTeam.name);
-      const away = fromApiName(m.awayTeam.name);
-      if (!matchFixture(home, away, 0, 0)) unmatched.push(`${m.homeTeam.name} vs ${m.awayTeam.name}`);
-    });
-    if (unmatched.length) console.log('Unmatched:', unmatched);
+    console.log('Total:', data.matches?.length, 'Finished:', finished?.length);
+    const stages = [...new Set(finished?.map(m => m.stage))];
+    console.log('Stages:', stages);
+    console.log('First:', finished?.[0]?.homeTeam?.name, 'vs', finished?.[0]?.awayTeam?.name);
     return data;
   } catch(e) { console.error('Debug failed:', e.message); }
 };
