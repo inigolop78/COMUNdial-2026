@@ -587,6 +587,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('score-visit').addEventListener('keydown', e=>{ if(e.key==='Enter') saveModal(); });
 });
 
+// Service worker disabled to prevent caching issues
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
+  navigator.serviceWorker.getRegistrations().then(regs => {
+    regs.forEach(reg => reg.unregister());
+  });
 }
