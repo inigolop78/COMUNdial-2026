@@ -194,6 +194,10 @@ function renderFaseGrupos() {
         matchesDiv.appendChild(mc);
       });
       block.appendChild(matchesDiv);
+      // Spacer that fills remaining height between matches and standings
+      const spacer = document.createElement('div');
+      spacer.className = 'group-spacer';
+      block.appendChild(spacer);
       const tbl = document.createElement('table');
       tbl.className = 'mini-table';
       tbl.innerHTML = `<thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>PTS</th><th>DIF</th></tr></thead>`;
@@ -254,6 +258,10 @@ function renderFaseGrupos() {
         matchesDiv.appendChild(mc);
       });
       block.appendChild(matchesDiv);
+      // Spacer that fills remaining height between matches and standings
+      const spacer = document.createElement('div');
+      spacer.className = 'group-spacer';
+      block.appendChild(spacer);
       const tbl = document.createElement('table');
       tbl.className = 'mini-table';
       tbl.innerHTML = `<thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>PTS</th><th>DIF</th></tr></thead>`;
