@@ -115,25 +115,40 @@ const PARTIDOS_GRUPO = {
 // Bracket: cada partido tiene id, refs a los dos participantes
 // e1/e2 pueden ser: "1A","2B" (clasificados de grupo), o id de partido previo (ganador)
 const BRACKET = [
-  // DIECISEISAVOS - Left side
+  // DIECISEISAVOS (Round of 32) - Official FIFA 2026 draw
+  // M74: 1E vs 3ABCDF  (Boston)
   { id:'DF1',  r:0, e1:'1E',  e2:'3ABCDF', next:'OF1', slot:0 },
+  // M77: 1I vs 3CDFGH  (New York)
   { id:'DF2',  r:0, e1:'1I',  e2:'3CDFGH', next:'OF1', slot:1 },
-  { id:'DF3',  r:0, e1:'2A',  e2:'2B',     next:'OF2', slot:0 },
-  { id:'DF4',  r:0, e1:'1F',  e2:'2C',     next:'OF2', slot:1 },
-  { id:'DF5',  r:0, e1:'2K',  e2:'2L',     next:'OF3', slot:0 },
-  { id:'DF6',  r:0, e1:'1H',  e2:'2J',     next:'OF3', slot:1 },
-  { id:'DF7',  r:0, e1:'1D',  e2:'3BEFIJ', next:'OF4', slot:0 },
-  { id:'DF8',  r:0, e1:'1G',  e2:'3AEHIJ', next:'OF4', slot:1 },
-  // DIECISEISAVOS - Right side
-  { id:'DF9',  r:0, e1:'1C',  e2:'2F',     next:'OF5', slot:0 },
-  { id:'DF10', r:0, e1:'2E',  e2:'2I',     next:'OF5', slot:1 },
-  { id:'DF11', r:0, e1:'1A',  e2:'3GEFHI', next:'OF6', slot:0 },
-  { id:'DF12', r:0, e1:'1L',  e2:'3EHIJK', next:'OF6', slot:1 },
-  { id:'DF13', r:0, e1:'1J',  e2:'2H',     next:'OF7', slot:0 },
-  { id:'DF14', r:0, e1:'2D',  e2:'2G',     next:'OF7', slot:1 },
-  { id:'DF15', r:0, e1:'1B',  e2:'3EFGIJ', next:'OF8', slot:0 },
-  { id:'DF16', r:0, e1:'1K',  e2:'3EHIJK', next:'OF8', slot:1 },
-  // OCTAVOS
+  // M78: 2E vs 2I      (Dallas)
+  { id:'DF3',  r:0, e1:'2E',  e2:'2I',     next:'OF2', slot:0 },
+  // M76: 1C vs 2F      (Houston)
+  { id:'DF4',  r:0, e1:'1C',  e2:'2F',     next:'OF2', slot:1 },
+  // M79: 1A vs 3CEFHI  (Mexico City)
+  { id:'DF5',  r:0, e1:'1A',  e2:'3CEFHI', next:'OF3', slot:0 },
+  // M80: 1L vs 3EHIJK  (Atlanta)
+  { id:'DF6',  r:0, e1:'1L',  e2:'3EHIJK', next:'OF3', slot:1 },
+  // M86: 1J vs 2H      (Miami)
+  { id:'DF7',  r:0, e1:'1J',  e2:'2H',     next:'OF4', slot:0 },
+  // M87: 2D vs 2G      (Dallas)
+  { id:'DF8',  r:0, e1:'2D',  e2:'2G',     next:'OF4', slot:1 },
+  // M83: 2K vs 2L      (Toronto)
+  { id:'DF9',  r:0, e1:'2K',  e2:'2L',     next:'OF5', slot:0 },
+  // M84: 1H vs 2J      (Los Angeles)
+  { id:'DF10', r:0, e1:'1H',  e2:'2J',     next:'OF5', slot:1 },
+  // M85: 1B vs 3EFGIJ  (Vancouver)
+  { id:'DF11', r:0, e1:'1B',  e2:'3EFGIJ', next:'OF6', slot:0 },
+  // M88: 1K vs 3EHIJK  (Kansas City)
+  { id:'DF12', r:0, e1:'1K',  e2:'3EHIJK', next:'OF6', slot:1 },
+  // M81: 1D vs 3BEFIJ  (SF Bay Area)
+  { id:'DF13', r:0, e1:'1D',  e2:'3BEFIJ', next:'OF7', slot:0 },
+  // M82: 1G vs 3AEHIJ  (Seattle)
+  { id:'DF14', r:0, e1:'1G',  e2:'3AEHIJ', next:'OF7', slot:1 },
+  // M75: 1F vs 2C      (Monterrey)
+  { id:'DF15', r:0, e1:'1F',  e2:'2C',     next:'OF8', slot:0 },
+  // M89: 2A vs 2B      (Los Angeles)
+  { id:'DF16', r:0, e1:'2A',  e2:'2B',     next:'OF8', slot:1 },
+  // OCTAVOS (Round of 16)
   { id:'OF1',  r:1, e1:'DF1', e2:'DF2',  next:'CF1', slot:0 },
   { id:'OF2',  r:1, e1:'DF3', e2:'DF4',  next:'CF1', slot:1 },
   { id:'OF3',  r:1, e1:'DF5', e2:'DF6',  next:'CF2', slot:0 },
