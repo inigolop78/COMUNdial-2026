@@ -191,3 +191,34 @@ window.debugAPI = async () => {
     return data;
   } catch(e) { console.error('Debug failed:', e.message); }
 };
+
+window.debugTeams = async () => {
+  try {
+    const res = await fetch(WORKER_URL);
+    const data = await res.json();
+    
+    // Get all our team names
+    const ourTeams = new Set();
+    Object.values(GRUPOS).forEach(g => g.forEach(t => ourTeams.add(t)));
+    
+    // Get all API team names
+    const apiTeams = new Set();
+    data.matches.forEach(m => {
+      apiTeams.add(m.homeTeam.name);
+      apiTeams.add(m.awayTeam.name);
+    });
+    
+    console.log('=== API TEAMS ===');
+    [...apiTeams].sort().forEach(t => {
+      const mapped = fromApiName(t);
+      const found = ourTeams.has(mapped);
+      if (!found) console.warn('NO MATCH:', t, '->', mapped);
+      else console.log('OK:', t, '->', mapped);
+    });
+    
+    console.log('\n=== UNMATCHED ===');
+    const unmatched = [...apiTeams].filter(t => !ourTeams.has(fromApiName(t)));
+    console.log(unmatched);
+    return unmatched;
+  } catch(e) { console.error(e); }
+};
