@@ -1,6 +1,14 @@
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Cache-Control = "no-cache, no-store, must-revalidate"
-    Pragma = "no-cache"
-    Expires = "0"
+[build]
+  command = "echo 'No build step needed'"
+  functions = "netlify/functions"
+  publish = "."
+
+[[redirects]]
+  from = "/api/matches"
+  to = "/.netlify/functions/get-matches"
+  status = 200
+  force = true
+
+[env]
+  [env.production]
+    FOOTBALL_DATA_API_KEY = ""
