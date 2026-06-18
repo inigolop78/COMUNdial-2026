@@ -1,81 +1,119 @@
-const WORKER_URL = 'https://mundial-proxy.inigolop.workers.dev';
+const WORKER_URL = '/.netlify/functions/get-matches';
 
 const TEAM_NAME_MAP = {
-  // English -> Spanish (all known variants)
-  'Algeria':                'Argelia',
-  'Argentina':              'Argentina',
-  'Australia':              'Australia',
-  'Austria':                'Austria',
-  'Belgium':                'Bélgica',
+  'Mexico': 'México',
+  'Mexico National Team': 'México',
+  'South Africa': 'Sudáfrica',
+  'South Korea': 'Corea del Sur',
+  'Korea Republic': 'Corea del Sur',
+  'Republic of Korea': 'Corea del Sur',
+  'Korea, South': 'Corea del Sur',
+  'Korea South': 'Corea del Sur',
+  'Czech Republic': 'República Checa',
+  'Czechia': 'República Checa',
+  'Czech Rep.': 'República Checa',
+  'Netherlands': 'Países Bajos',
   'Bosnia and Herzegovina': 'Bosnia Herzegovina',
-  'Bosnia-Herzegovina':     'Bosnia Herzegovina',
-  'Brazil':                 'Brasil',
-  'Canada':                 'Canadá',
-  'Cape Verde':             'Cabo Verde',
-  'Colombia':               'Colombia',
-  'Costa Rica':             'Costa Rica',
-  "Côte d'Ivoire":          'Costa de Marfil',
-  'Croatia':                'Croacia',
-  'Curacao':                'Curaçao',
-  'Czech Republic':         'República Checa',
-  'Czechia':                'República Checa',
-  'Denmark':                'Dinamarca',
-  'DR Congo':               'R.D. del Congo',
-  'Congo DR':               'R.D. del Congo',
-  'Ecuador':                'Ecuador',
-  'Egypt':                  'Egipto',
-  'England':                'Inglaterra',
-  'France':                 'Francia',
-  'Germany':                'Alemania',
-  'Ghana':                  'Ghana',
-  'Haiti':                  'Haití',
-  'Iran':                   'Irán',
-  'Iraq':                   'Irak',
-  'Ivory Coast':            'Costa de Marfil',
-  'Japan':                  'Japón',
-  'Jordan':                 'Jordania',
-  'Korea Republic':         'Corea del Sur',
-  'South Korea':            'Corea del Sur',
-  'Mexico':                 'México',
-  'Morocco':                'Marruecos',
-  'Netherlands':            'Países Bajos',
-  'New Zealand':            'Nueva Zelanda',
-  'Norway':                 'Noruega',
-  'Panama':                 'Panamá',
-  'Paraguay':               'Paraguay',
-  'Peru':                   'Perú',
-  'Portugal':               'Portugal',
-  'Qatar':                  'Qatar',
-  'Saudi Arabia':           'Arabia Saudí',
-  'Scotland':               'Escocia',
-  'Senegal':                'Senegal',
-  'Serbia':                 'Serbia',
-  'South Africa':           'Sudáfrica',
-  'Spain':                  'España',
-  'Sweden':                 'Suecia',
-  'Switzerland':            'Suiza',
-  'Tunisia':                'Túnez',
-  'Turkey':                 'Turquía',
-  'Türkiye':                'Turquía',
-  'United States':          'Estados Unidos',
-  'USA':                    'Estados Unidos',
-  'Uruguay':                'Uruguay',
-  'Uzbekistan':             'Uzbekistán',
-  'Venezuela':              'Venezuela',
+  'Bosnia-Herzegovina': 'Bosnia Herzegovina',
+  'Bosnia & Herzegovina': 'Bosnia Herzegovina',
+  'Saudi Arabia': 'Arabia Saudí',
+  'Iran': 'Irán',
+  'Morocco': 'Marruecos',
+  'Algeria': 'Argelia',
+  'Tunisia': 'Túnez',
+  'Tunisia National Team': 'Túnez',
+  'Egypt': 'Egipto',
+  'Cape Verde': 'Cabo Verde',
+  'Cape Verde Islands': 'Cabo Verde',
+  'Ghana': 'Ghana',
+  'Senegal': 'Senegal',
+  'USA': 'Estados Unidos',
+  'United States': 'Estados Unidos',
+  'United States of America': 'Estados Unidos',
+  'United States Men': 'Estados Unidos',
+  'USMNT': 'Estados Unidos',
+  'Canada': 'Canadá',
+  'Panama': 'Panamá',
+  'Haiti': 'Haití',
+  'Brazil': 'Brasil',
+  'Brazil National Team': 'Brasil',
+  'Argentina': 'Argentina',
+  'Paraguay': 'Paraguay',
+  'Uruguay': 'Uruguay',
+  'Colombia': 'Colombia',
+  'Ecuador': 'Ecuador',
+  'Germany': 'Alemania',
+  'France': 'Francia',
+  'Spain': 'España',
+  'Portugal': 'Portugal',
+  'Belgium': 'Bélgica',
+  'Austria': 'Austria',
+  'Switzerland': 'Suiza',
+  'Sweden': 'Suecia',
+  'Norway': 'Noruega',
+  'England': 'Inglaterra',
+  'Scotland': 'Escocia',
+  'Croatia': 'Croacia',
+  'Japan': 'Japón',
+  'Australia': 'Australia',
+  'New Zealand': 'Nueva Zelanda',
+  'Curacao': 'Curaçao',
+  'Curaçao': 'Curaçao',
+  "Côte d'Ivoire": 'Costa de Marfil',
+  'Ivory Coast': 'Costa de Marfil',
+  "Cote d'Ivoire": 'Costa de Marfil',
+  'Cote dIvoire': 'Costa de Marfil',
+  'Iraq': 'Iraq',
+  'Qatar': 'Qatar',
+  'Jordan': 'Jordania',
+  'Uzbekistan': 'Uzbekistán',
+  'Turkey': 'Turquía',
+  'Türkiye': 'Turquía',
+  'DR Congo': 'R.D. del Congo',
+  'Congo, Dem. Rep.': 'R.D. del Congo',
+  'Congo DR': 'R.D. del Congo',
+  'Democratic Republic of the Congo': 'R.D. del Congo',
 };
 
-function fromApiName(n) { return TEAM_NAME_MAP[n] || n; }
+function fromApiName(n) {
+  if (!n || typeof n !== 'string') {
+    console.warn(`⚠️ Invalid team name: ${JSON.stringify(n)}`);
+    return n;
+  }
+  const trimmed = n.trim();
+  if (TEAM_NAME_MAP[trimmed]) {
+    return TEAM_NAME_MAP[trimmed];
+  }
+  const lowerTrimmed = trimmed.toLowerCase();
+  for (const [apiName, spanishName] of Object.entries(TEAM_NAME_MAP)) {
+    if (apiName.toLowerCase() === lowerTrimmed) {
+      console.log(`ℹ️ Case-insensitive team match: "${trimmed}" → "${spanishName}"`);
+      return spanishName;
+    }
+  }
+  const words = trimmed.split(/\s+/);
+  if (words.length > 1) {
+    for (const word of words) {
+      const mappedWord = TEAM_NAME_MAP[word.trim()];
+      if (mappedWord) {
+        console.log(`ℹ️ Partial match: "${trimmed}" → "${mappedWord}" (word: "${word}")`);
+        return mappedWord;
+      }
+    }
+  }
+  console.warn(`⚠️ Team name NOT found in TEAM_NAME_MAP: "${n}"`);
+  return trimmed;
+}
 
-// Map API stage names to our bracket IDs
 const STAGE_TO_ROUNDS = {
-  'LAST_32':         'DF',
-  'ROUND_OF_32':     'DF',
-  'LAST_16':         'OF',
-  'ROUND_OF_16':     'OF',
-  'QUARTER_FINALS':  'CF',
-  'SEMI_FINALS':     'SF',
-  'THIRD_PLACE':     'TP',
-  'FINAL':           'FIN',
+  'LAST_32': 'DF',
+  'ROUND_OF_32': 'DF',
+  'LAST_16': 'OF',
+  'ROUND_OF_16': 'OF',
+  'QUARTER_FINALS': 'CF',
+  'SEMI_FINALS': 'SF',
+  'THIRD_PLACE': 'TP',
+  'FINAL': 'FIN',
 };
 
 function setSyncStatus(state) {
@@ -96,7 +134,6 @@ function matchGroupFixture(home, away, gl, gv) {
 }
 
 function matchKnockoutFixture(home, away, gl, gv, stage) {
-  // Find the bracket match that has these two teams
   const prefix = STAGE_TO_ROUNDS[stage];
   if (!prefix) return null;
 
@@ -116,7 +153,7 @@ function matchKnockoutFixture(home, away, gl, gv, stage) {
         local: reversed ? gv : gl,
         visit: reversed ? gl : gv,
         winner: gl > gv ? (reversed ? away : home) : gv > gl ? (reversed ? home : away) : null,
-        loser:  gl > gv ? (reversed ? home : away) : gv > gl ? (reversed ? away : home) : null,
+        loser: gl > gv ? (reversed ? home : away) : gv > gl ? (reversed ? away : home) : null,
         teamLocal: reversed ? away : home,
         teamVisit: reversed ? home : away,
       };
@@ -126,8 +163,7 @@ function matchKnockoutFixture(home, away, gl, gv, stage) {
 }
 
 function getTeamFromRef(ref) {
-  // Try to resolve a ref like "1A", "2B", "DF1" etc from current standings
-  return null; // will be resolved by the app when teams are known
+  return null;
 }
 
 async function syncFromAPI() {
@@ -141,6 +177,7 @@ async function syncFromAPI() {
     const FINISHED = ['FINISHED','IN_PLAY','PAUSED'];
     let updatedGroups = 0;
     let updatedKnockout = 0;
+    let failedMatches = [];
 
     data.matches.forEach(m => {
       if (!FINISHED.includes(m.status)) return;
@@ -152,10 +189,27 @@ async function syncFromAPI() {
       const away = fromApiName(m.awayTeam.name);
       const stage = m.stage;
 
-      // Group stage
+      if (!home || home === m.homeTeam.name.trim() || !away || away === m.awayTeam.name.trim()) {
+        failedMatches.push({
+          type: 'mapping_failed',
+          home: m.homeTeam.name,
+          away: m.awayTeam.name,
+          mappedHome: home,
+          mappedAway: away
+        });
+      }
+
       if (stage && (stage.includes('GROUP') || stage === 'GROUP_STAGE')) {
         const match = matchGroupFixture(home, away, gl, gv);
-        if (!match) return;
+        if (!match) {
+          failedMatches.push({
+            type: 'group_not_found',
+            home: home,
+            away: away,
+            stage: stage
+          });
+          return;
+        }
         const existing = resultados[match.key];
         if (existing && !existing.fromAPI) return;
         resultados[match.key] = { local: match.local, visit: match.visit, fromAPI: true };
@@ -163,7 +217,6 @@ async function syncFromAPI() {
         return;
       }
 
-      // Knockout stages
       const knockoutMatch = matchKnockoutFixture(home, away, gl, gv, stage);
       if (knockoutMatch) {
         const existing = elimResults[knockoutMatch.matchId];
@@ -181,11 +234,22 @@ async function syncFromAPI() {
       }
     });
 
-    if (updatedGroups > 0 || updatedKnockout > 0) { save(); renderAll(); }
+    if (updatedGroups > 0 || updatedKnockout > 0) { 
+      save(); 
+      renderAll(); 
+    }
+    
     setSyncStatus('ok');
-    console.log(`Sync OK — grupos: ${updatedGroups}, eliminatorias: ${updatedKnockout}`);
+    console.log(`✅ Sync OK — Grupos: ${updatedGroups}, Eliminatorias: ${updatedKnockout}`);
+    
+    if (failedMatches.length > 0) {
+      console.warn(`⚠️ ${failedMatches.length} partidos no pudieron ser procesados:`);
+      failedMatches.forEach(m => {
+        console.warn(`   ${m.home || m.mappedHome} vs ${m.away || m.mappedAway} (${m.type})`);
+      });
+    }
   } catch(err) {
-    console.warn('API sync failed:', err.message);
+    console.warn('❌ API sync failed:', err.message);
     setSyncStatus('error');
   }
 }
@@ -196,6 +260,16 @@ async function initSync() {
     setInterval(syncFromAPI, 3 * 60 * 1000);
   }, 1500);
 }
+
+window.debugTeamNames = () => {
+  console.log('═══ TEST DE MAPEO DE NOMBRES ═══\n');
+  const testCases = ['Mexico', 'Brazil', 'Argentina', 'England', 'USA', 'South Africa', 'South Korea', 'Czech Republic', 'Bosnia and Herzegovina', 'Congo DR', 'Ivory Coast', 'Cape Verde Islands'];
+  testCases.forEach(name => {
+    const mapped = fromApiName(name);
+    const status = mapped !== name ? '✅' : '❌';
+    console.log(`${status} "${name}" → "${mapped}"`);
+  });
+};
 
 window.debugAPI = async () => {
   try {
@@ -208,35 +282,4 @@ window.debugAPI = async () => {
     console.log('First:', finished?.[0]?.homeTeam?.name, 'vs', finished?.[0]?.awayTeam?.name);
     return data;
   } catch(e) { console.error('Debug failed:', e.message); }
-};
-
-window.debugTeams = async () => {
-  try {
-    const res = await fetch(WORKER_URL);
-    const data = await res.json();
-    
-    // Get all our team names
-    const ourTeams = new Set();
-    Object.values(GRUPOS).forEach(g => g.forEach(t => ourTeams.add(t)));
-    
-    // Get all API team names
-    const apiTeams = new Set();
-    data.matches.forEach(m => {
-      apiTeams.add(m.homeTeam.name);
-      apiTeams.add(m.awayTeam.name);
-    });
-    
-    console.log('=== API TEAMS ===');
-    [...apiTeams].sort().forEach(t => {
-      const mapped = fromApiName(t);
-      const found = ourTeams.has(mapped);
-      if (!found) console.warn('NO MATCH:', t, '->', mapped);
-      else console.log('OK:', t, '->', mapped);
-    });
-    
-    console.log('\n=== UNMATCHED ===');
-    const unmatched = [...apiTeams].filter(t => !ourTeams.has(fromApiName(t)));
-    console.log(unmatched);
-    return unmatched;
-  } catch(e) { console.error(e); }
 };
